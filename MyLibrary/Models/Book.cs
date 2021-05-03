@@ -15,5 +15,6 @@ namespace MyLibrary.Models
         public string ISBN { get; set; }
         public int Pages { get; set; }
         public double UnitPrice { get; set; }
+        public List<Category> Categories { get; set; }
     }
 }

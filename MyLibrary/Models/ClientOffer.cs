@@ -7,9 +7,7 @@ namespace MyLibrary.Models
 {
     public class ClientOffer
     {
-        public int ClientOfferId { get; set; }
-        public int ClientId { get; set; }
-        public int OfferId { get; set; }
+        public Offer Offer { get; set; }
         public DateTime AgreementDate { get; set; }
     }
 }
