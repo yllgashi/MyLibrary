@@ -10,7 +10,10 @@ namespace MyLibrary.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            string json = "asd";
+
+
+            return View(json);
         }
     }
 }
