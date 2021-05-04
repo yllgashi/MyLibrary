@@ -91,16 +91,16 @@ namespace MyLibrary.DataAccess
             }
         };
 
-        public static List<BookRent> BookRents = new List<BookRent>()
+        public static List<BookRentAccess> BookRents = new List<BookRentAccess>()
         {
-            new BookRent()
+            new BookRentAccess()
             {
                 BookRentId = 1,
                 BookId = 1,
                 ClientId = 1,
                 RentDate = DateTime.Now
             },
-            new BookRent()
+            new BookRentAccess()
             {
                 BookRentId = 2,
                 BookId = 2,
