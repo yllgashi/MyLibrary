@@ -17,13 +17,15 @@ namespace MyLibrary.DataService
             authorAccess = new AuthorAccess();
         }
 
-        public List<Author> GetAll()
+        public List<Author> GetList()
         {
             return authorAccess.GetAll();
         }
 
-        public Author Get(string id)
+        public Author Get(int id)
         {
+            // usp_Author_Get
+            // usp_Author_Books_Get
             return authorAccess.Get(id);
         }
 
@@ -32,14 +34,20 @@ namespace MyLibrary.DataService
             return authorAccess.Create(author);
         }
 
-        public bool Update(string id, Author author)
+        public bool Update(int id, Author author)
         {
             return authorAccess.Update(id, author);
         }
 
-        public bool Delete(string id)
+        public bool Delete(int id)
         {
             return authorAccess.Delete(id);
+        }
+
+        public List<Book> GetAuthorBooks(int id)
+        {
+            //usp_Author_Books_Get
+            return authorAccess.GetAuthorBooks(id);
         }
     }
 }

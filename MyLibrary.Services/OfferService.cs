@@ -15,12 +15,12 @@ namespace MyLibrary.DataService
             offerServiceAccess = new OfferServiceAccess();
         }
 
-        public List<Offer> GetAll()
+        public List<Offer> GetList()
         {
             return offerServiceAccess.GetAll();
         }
 
-        public Offer Get(string id)
+        public Offer Get(int id)
         {
             return offerServiceAccess.Get(id);
         }
@@ -30,12 +30,12 @@ namespace MyLibrary.DataService
             return offerServiceAccess.Create(offerService);
         }
 
-        public bool Update(string id, Offer offerService)
+        public bool Update(int id, Offer offerService)
         {
             return offerServiceAccess.Update(id, offerService);
         }
 
-        public bool Delete(string id)
+        public bool Delete(int id)
         {
             return offerServiceAccess.Delete(id);
         }

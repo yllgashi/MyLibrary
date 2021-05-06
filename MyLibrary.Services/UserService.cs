@@ -15,12 +15,12 @@ namespace MyLibrary.DataService
             userAccess = new UserAccess();
         }
 
-        public List<User> GetAll()
+        public List<User> GetList()
         {
             return userAccess.GetAll();
         }
 
-        public User Get(string id)
+        public User Get(int id)
         {
             return userAccess.Get(id);
         }
@@ -30,12 +30,12 @@ namespace MyLibrary.DataService
             return userAccess.Create(book);
         }
 
-        public bool Update(string id, User book)
+        public bool Update(int id, User book)
         {
             return userAccess.Update(id, book);
         }
 
-        public bool Delete(string id)
+        public bool Delete(int id)
         {
             return userAccess.Delete(id);
         }

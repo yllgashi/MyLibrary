@@ -15,27 +15,29 @@ namespace MyLibrary.DataService
             bookAccess = new BookAccess();
         }
 
-        public List<Book> GetAll()
+        public List<Book> GetList()
         {
             return bookAccess.GetAll();
         }
 
-        public Book Get (string id)
+        public Book Get(int id)
         {
+            //usp_Book_Get
+            //usp_Book_Get_Category
             return bookAccess.Get(id);
         }
 
-        public bool Create (Book book)
+        public bool Create(Book book)
         {
             return bookAccess.Create(book);
         }
 
-        public bool Update(string id,Book book)
+        public bool Update(int id,Book book)
         {
             return bookAccess.Update(id, book);
         }
 
-        public bool Delete(string id)
+        public bool Delete(int id)
         {
             return bookAccess.Delete(id);
         }

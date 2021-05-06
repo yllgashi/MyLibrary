@@ -24,5 +24,17 @@ namespace MyLibrary.Controllers
 
             return View(authors);
         }
+
+        //public IActionResult Create()
+        //{
+        //    Author author = new Author()
+        //    {
+        //        FirstName = "Filan",
+        //        LastName = "Fisteku",
+        //        BirthDate = DateTime.Now
+        //    };
+
+        //    authorService.Create(author);
+        //}
     }
 }

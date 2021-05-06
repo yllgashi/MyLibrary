@@ -15,13 +15,16 @@ namespace MyLibrary.DataService
             clientAccess = new ClientAccess();
         }
 
-        public List<Client> GetAll()
+        public List<Client> GetList()
         {
             return clientAccess.GetAll();
         }
 
-        public Client Get(string id)
+        public Client Get(int id)
         {
+            // usp_Client_Get_Offers
+            // usp_BookRent_Get_By_Client
+            // usp_Client_Get
             return clientAccess.Get(id);
         }
 
@@ -30,12 +33,12 @@ namespace MyLibrary.DataService
             return clientAccess.Create(client);
         }
 
-        public bool Update(string id, Client client)
+        public bool Update(int id, Client client)
         {
             return clientAccess.Update(id, client);
         }
 
-        public bool Delete(string id)
+        public bool Delete(int id)
         {
             return clientAccess.Delete(id);
         }

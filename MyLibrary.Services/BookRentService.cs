@@ -15,12 +15,12 @@ namespace MyLibrary.DataService
             bookRentaccess = new BookRentAccess();
         }
 
-        public List<BookRent> GetAll()
+        public List<BookRent> GetList()
         {
             return bookRentaccess.GetAll();
         }
 
-        public BookRent Get(string id)
+        public BookRent Get(int id)
         {
             return bookRentaccess.Get(id);
         }
@@ -30,17 +30,14 @@ namespace MyLibrary.DataService
             return bookRentaccess.Create(bookRent);
         }
 
-        public bool Update(string id , BookRent bookRent)
+        public bool Update(int id , BookRent bookRent)
         {
             return bookRentaccess.Update(id, bookRent);
         }
 
-        public bool Delete(string id)
+        public bool Delete(int id)
         {
             return bookRentaccess.Delete(id);
         }
-
-
-
     }
 }
