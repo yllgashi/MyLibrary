@@ -12,6 +12,6 @@ namespace MyLibrary.Models
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
         public List<ClientOffer> OffersPayed { get; set; }
-        public List<BookRentAccess> BookRents { get; set; }
+        public List<BookRent> BookRents { get; set; }
     }
 }
