@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="bootstrap" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyLibrary.Access\MyLibrary.Access.csproj" />
+    <ProjectReference Include="..\MyLibrary.Models\MyLibrary.Models.csproj" />
+  </ItemGroup>
+
+</Project>
