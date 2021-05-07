@@ -53,7 +53,6 @@ BEGIN
 	BEGIN TRY
 		UPDATE c
 		SET 
-			c.CategoryId = @categoryId,
 			c.[Description] = @description
 		FROM Category AS c
 		WHERE c.CategoryId = @id

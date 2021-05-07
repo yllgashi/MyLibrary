@@ -72,8 +72,8 @@ BEGIN
 		UPDATE c
 		SET
 			c.FirstName = @firstName,
-			c.FirstName = @lastName,
-			c.FirstName = @birthDate
+			c.LastName = @lastName,
+			c.BirthDate = @birthDate
 		FROM Client AS c
 		WHERE c.ClientId = @id
 	END TRY
