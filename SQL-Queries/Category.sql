@@ -83,7 +83,7 @@ END
 
 GO
 
-CREATE PROCEDURE usp_Get_Books_By_Category
+CREATE PROCEDURE usp_Category_Get_Books_By_Category
 @id INT
 AS
 BEGIN

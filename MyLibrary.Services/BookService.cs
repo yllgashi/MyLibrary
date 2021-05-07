@@ -29,6 +29,8 @@ namespace MyLibrary.DataService
 
         public bool Create(Book book)
         {
+            // usp_Book_Create
+            //usp_Category_Add_Book_Category
             return bookAccess.Create(book);
         }
 

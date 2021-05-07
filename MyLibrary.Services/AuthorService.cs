@@ -19,7 +19,7 @@ namespace MyLibrary.DataService
 
         public List<Author> GetList()
         {
-            return authorAccess.GetAll();
+            return authorAccess.GetList();
         }
 
         public Author Get(int id)

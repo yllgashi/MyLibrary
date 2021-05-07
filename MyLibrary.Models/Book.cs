@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,5 +16,6 @@ namespace MyLibrary.Models
         public int Pages { get; set; }
         public double UnitPrice { get; set; }
         public List<Category> Categories { get; set; }
+        public List<Author> Authors { get; set; }
     }
 }
