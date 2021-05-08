@@ -46,22 +46,23 @@ namespace MyLibrary.DataAccess
             Author author = new Author();
             author.Books = new List<Book>();
             // get author
-            using(DatabaseConn.conn = new SqlConnection(DatabaseConn.conString))
+            using (DatabaseConn.conn = new SqlConnection(DatabaseConn.conString))
             {
                 DatabaseConn.cmd = new SqlCommand("usp_Author_Get", DatabaseConn.conn);
                 DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
                 DatabaseConn.da = new SqlDataAdapter(DatabaseConn.cmd);
+                DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
 
                 try
                 {
                     DatabaseConn.conn.Open();
                     var reader = DatabaseConn.cmd.ExecuteReader();
-                    while(reader.Read())
+                    while (reader.Read())
                     {
                         author = GetAuthorFromDb(reader);
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     throw ex;
                 }
@@ -95,22 +96,25 @@ namespace MyLibrary.DataAccess
 
         public bool Create(Author author)
         {
-            DatabaseConn.cmd = new SqlCommand("usp_Author_Create", DatabaseConn.conn);
-            DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
-            DatabaseConn.cmd.Parameters.AddWithValue("@firstName", author.FirstName);
-            DatabaseConn.cmd.Parameters.AddWithValue("@lastName", author.LastName);
-            DatabaseConn.cmd.Parameters.AddWithValue("@birthDate", author.BirthDate);
-
-            try
+            using (DatabaseConn.conn = new SqlConnection(DatabaseConn.conString))
             {
-                DatabaseConn.conn.Open();
-                DatabaseConn.cmd.ExecuteNonQuery();
+                DatabaseConn.cmd = new SqlCommand("usp_Author_Create", DatabaseConn.conn);
+                DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
+                DatabaseConn.cmd.Parameters.AddWithValue("@firstName", author.FirstName);
+                DatabaseConn.cmd.Parameters.AddWithValue("@lastName", author.LastName);
+                DatabaseConn.cmd.Parameters.AddWithValue("@birthDate", author.BirthDate);
 
-                return true;
-            }
-            catch(Exception ex)
-            {
-                throw ex;
+                try
+                {
+                    DatabaseConn.conn.Open();
+                    DatabaseConn.cmd.ExecuteNonQuery();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
         }
 
