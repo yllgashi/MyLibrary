@@ -84,6 +84,28 @@ namespace MyLibrary.Access
                     throw ex;
                 }
             }
+
+            using (DatabaseConn.conn = new SqlConnection(DatabaseConn.conString))
+            {
+                DatabaseConn.cmd = new SqlCommand("usp_Book_Get", DatabaseConn.conn);
+                DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
+                DatabaseConn.da = new SqlDataAdapter(DatabaseConn.cmd);
+                DatabaseConn.cmd.Parameters.AddWithValue("@id", bookRent.BookId);
+
+                try
+                {
+                    DatabaseConn.conn.Open();
+                    var reader = DatabaseConn.cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        bookRent.Book = GetBookFromDb(reader);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
             return bookRent;
         }
 
@@ -175,10 +197,26 @@ namespace MyLibrary.Access
                 LastName = reader["LastName"].ToString(),
                 BirthDate = DateTime.Parse(reader["BirthDate"].ToString()),
                 BookRents = new List<BookRent>(),
-                OffersPayed = new List<ClientOffer>()
+                ClientOffers = new List<ClientOffer>()
             };
 
             return client;
+        }
+
+        private Book GetBookFromDb(SqlDataReader reader)
+        {
+            Book book = new Book()
+            {
+                BookId = int.Parse(reader["BookId"].ToString()),
+                Title = reader["Title"].ToString(),
+                Summary = reader["Summary"].ToString(),
+                PublishedYear = short.Parse(reader["PublishedYear"].ToString()),
+                Publisher = reader["Publisher"].ToString(),
+                ISBN = reader["ISBN"].ToString(),
+                Pages = int.Parse(reader["Pages"].ToString()),
+                UnitPrice = double.Parse(reader["UnitPrice"].ToString())
+            };
+            return book;
         }
     }
 }

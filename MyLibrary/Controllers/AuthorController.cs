@@ -17,10 +17,10 @@ namespace MyLibrary.Controllers
             return View();
         }
 
-        public IActionResult GetAll()
+        public IActionResult GetList()
         {
             authorService = new AuthorService();
-            List<Author> authors = authorService.GetAll();
+            List<Author> authors = authorService.GetList();
 
             return View(authors);
         }

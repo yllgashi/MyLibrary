@@ -1,4 +1,5 @@
-﻿using MyLibrary.Models;
+﻿using MyLibrary.Access;
+using MyLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +9,16 @@ namespace MyLibrary.DataService
 {
     public class OfferService
     {
-        OfferServiceAccess offerServiceAccess;
+        OfferAccess offerServiceAccess;
 
         public OfferService()
         {
-            offerServiceAccess = new OfferServiceAccess();
+            offerServiceAccess = new OfferAccess();
         }
 
         public List<Offer> GetList()
         {
-            return offerServiceAccess.GetAll();
+            return offerServiceAccess.GetList();
         }
 
         public Offer Get(int id)
