@@ -43,11 +43,5 @@ namespace MyLibrary.DataService
         {
             return authorAccess.Delete(id);
         }
-
-        public List<Book> GetAuthorBooks(int id)
-        {
-            //usp_Author_Books_Get
-            return authorAccess.GetAuthorBooks(id);
-        }
     }
 }

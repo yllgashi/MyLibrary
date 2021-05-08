@@ -8,7 +8,7 @@ using System.Text;
 
 namespace MyLibrary.Access
 {
-    class OfferAccess
+    public class OfferAccess
     {
         public List<Offer> GetList()
         {

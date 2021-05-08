@@ -1,4 +1,5 @@
-﻿using MyLibrary.Models;
+﻿using MyLibrary.Access;
+using MyLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace MyLibrary.DataService
 
         public List<Category> GetList()
         {
-            return categoryAccess.GetAll();
+            return categoryAccess.GetList();
         }
 
         public Category Get (int id)
@@ -38,12 +39,6 @@ namespace MyLibrary.DataService
         public bool Delete(int id)
         {
             return categoryAccess.Delete(id);
-        }
-
-        public List<Book> GetBooksByCategory(int id)
-        {
-            //usp_Get_Books_By_Category
-            return categoryAccess.GetBooksByCategory(id);
         }
 
     }

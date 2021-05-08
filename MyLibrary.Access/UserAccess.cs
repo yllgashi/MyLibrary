@@ -8,7 +8,7 @@ using System.Text;
 
 namespace MyLibrary.Access
 {
-    class UserAccess
+    public class UserAccess
     {
         public List<User> GetList()
         {
@@ -74,7 +74,7 @@ namespace MyLibrary.Access
                 DatabaseConn.cmd = new SqlCommand("usp_User_Create", DatabaseConn.conn);
                 DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
                 DatabaseConn.cmd.Parameters.AddWithValue("@firstName", user.FirstName);
-                DatabaseConn.cmd.Parameters.AddWithValue("@lastName",user.LastName);
+                DatabaseConn.cmd.Parameters.AddWithValue("@lastName", user.LastName);
                 DatabaseConn.cmd.Parameters.AddWithValue("@email", user.Email);
                 DatabaseConn.cmd.Parameters.AddWithValue("@password", user.Password);
 
@@ -132,6 +132,20 @@ namespace MyLibrary.Access
             {
                 throw ex;
             }
+        }
+
+        private User GetUserFromDb(SqlDataReader reader)
+        {
+            User user = new User()
+            {
+                UserId = int.Parse(reader["UserId"].ToString()),
+                FirstName = reader["FirstName"].ToString(),
+                LastName = reader["LastName"].ToString(),
+                Email = reader["Email"].ToString(),
+                Password = reader["Password"].ToString(),
+            };
+
+            return user;
         }
     }
 }
