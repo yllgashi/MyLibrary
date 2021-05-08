@@ -44,7 +44,6 @@ namespace MyLibrary.DataAccess
             // usp_Author_Get
             // usp_Author_Books_Get
             Author author = new Author();
-            author.Books = new List<Book>();
             // get author
             using (DatabaseConn.conn = new SqlConnection(DatabaseConn.conString))
             {
@@ -76,6 +75,7 @@ namespace MyLibrary.DataAccess
                 DatabaseConn.da = new SqlDataAdapter(DatabaseConn.cmd);
                 DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
 
+                author.Books = new List<Book>();
                 try
                 {
                     DatabaseConn.conn.Open();

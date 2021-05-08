@@ -45,8 +45,6 @@ namespace MyLibrary.Access
             //usp_Book_Get_Category
             //usp_Book_Get_Authors
             Book book = new Book();
-            book.Authors = new List<Author>();
-            book.Categories = new List<Category>();
 
             using (DatabaseConn.conn = new SqlConnection(DatabaseConn.conString))
             {
@@ -77,6 +75,7 @@ namespace MyLibrary.Access
                 DatabaseConn.da = new SqlDataAdapter(DatabaseConn.cmd);
                 DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
 
+                book.Categories = new List<Category>();
                 try
                 {
                     DatabaseConn.conn.Open();
@@ -99,6 +98,7 @@ namespace MyLibrary.Access
                 DatabaseConn.da = new SqlDataAdapter(DatabaseConn.cmd);
                 DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
 
+                book.Authors = new List<Author>();
                 try
                 {
                     DatabaseConn.conn.Open();

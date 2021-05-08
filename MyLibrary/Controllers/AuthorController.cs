@@ -25,6 +25,14 @@ namespace MyLibrary.Controllers
             return View(authors);
         }
 
+        public IActionResult Get()
+        {
+            authorService = new AuthorService();
+            Author author = authorService.Get(1);
+            
+            return View(author);
+        }
+
         //public IActionResult Create()
         //{
         //    Author author = new Author()

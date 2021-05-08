@@ -72,6 +72,7 @@ namespace MyLibrary.Access
                 DatabaseConn.da = new SqlDataAdapter(DatabaseConn.cmd);
                 DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
 
+                client.ClientOffers = new List<ClientOffer>();
                 try
                 {
                     DatabaseConn.conn.Open();
@@ -95,6 +96,7 @@ namespace MyLibrary.Access
                 DatabaseConn.da = new SqlDataAdapter(DatabaseConn.cmd);
                 DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
 
+                client.BookRents = new List<BookRent>();
                 try
                 {
                     DatabaseConn.conn.Open();

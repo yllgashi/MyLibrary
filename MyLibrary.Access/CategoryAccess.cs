@@ -70,6 +70,7 @@ namespace MyLibrary.Access
                 DatabaseConn.da = new SqlDataAdapter(DatabaseConn.cmd);
                 DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
 
+                category.Books = new List<Book>();
                 try
                 {
                     DatabaseConn.conn.Open();
