@@ -1,4 +1,5 @@
 ﻿using MyLibrary.Models;
+using MyLibrary.Access;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace MyLibrary.DataService
 
         public List<BookRent> GetList()
         {
-            return bookRentaccess.GetAll();
+            return bookRentaccess.GetList();
         }
 
         public BookRent Get(int id)
