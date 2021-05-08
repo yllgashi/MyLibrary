@@ -52,6 +52,8 @@ namespace MyLibrary.Access
                 {
                     DatabaseConn.conn.Open();
                     var reader = DatabaseConn.cmd.ExecuteReader();
+                    if (!reader.HasRows) throw new Exception();
+
                     while (reader.Read())
                     {
                         category = GetCategoryFromDb(reader);

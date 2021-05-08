@@ -14,35 +14,25 @@ namespace MyLibrary.Controllers
 
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult GetList()
-        {
             authorService = new AuthorService();
             List<Author> authors = authorService.GetList();
 
             return View(authors);
         }
 
-        public IActionResult Get()
+        public IActionResult Get(int id)
         {
             authorService = new AuthorService();
-            Author author = authorService.Get(1);
-            
-            return View(author);
+            try
+            {
+                Author author = authorService.Get(id);
+
+                return View(author);
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
-
-        //public IActionResult Create()
-        //{
-        //    Author author = new Author()
-        //    {
-        //        FirstName = "Filan",
-        //        LastName = "Fisteku",
-        //        BirthDate = DateTime.Now
-        //    };
-
-        //    authorService.Create(author);
-        //}
     }
 }

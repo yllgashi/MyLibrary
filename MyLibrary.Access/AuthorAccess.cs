@@ -56,6 +56,8 @@ namespace MyLibrary.DataAccess
                 {
                     DatabaseConn.conn.Open();
                     var reader = DatabaseConn.cmd.ExecuteReader();
+                    if (!reader.HasRows) throw new Exception();
+
                     while (reader.Read())
                     {
                         author = GetAuthorFromDb(reader);
@@ -168,7 +170,6 @@ namespace MyLibrary.DataAccess
                 LastName = reader["LastName"].ToString(),
                 BirthDate = DateTime.Parse(reader["BirthDate"].ToString())
             };
-
             return author;
         }
 
