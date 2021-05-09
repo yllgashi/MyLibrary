@@ -152,46 +152,52 @@ namespace MyLibrary.Access
 
         public bool Update(int id, Book book)
         {
-            DatabaseConn.cmd = new SqlCommand("usp_Book_Update", DatabaseConn.conn);
-            DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
-            DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
-            DatabaseConn.cmd.Parameters.AddWithValue("@title", book.Title);
-            DatabaseConn.cmd.Parameters.AddWithValue("@summary", book.Summary);
-            DatabaseConn.cmd.Parameters.AddWithValue("@publishedYear", book.PublishedYear);
-            DatabaseConn.cmd.Parameters.AddWithValue("@publisher", book.Publisher);
-            DatabaseConn.cmd.Parameters.AddWithValue("@isbn", book.ISBN);
-            DatabaseConn.cmd.Parameters.AddWithValue("@pages", book.Pages);
-            DatabaseConn.cmd.Parameters.AddWithValue("@birthDate", book.UnitPrice);
-
-            try
+            using (DatabaseConn.conn = new SqlConnection(DatabaseConn.conString))
             {
-                DatabaseConn.conn.Open();
-                DatabaseConn.cmd.ExecuteNonQuery();
+                DatabaseConn.cmd = new SqlCommand("usp_Book_Update", DatabaseConn.conn);
+                DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
+                DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
+                DatabaseConn.cmd.Parameters.AddWithValue("@title", book.Title);
+                DatabaseConn.cmd.Parameters.AddWithValue("@summary", book.Summary);
+                DatabaseConn.cmd.Parameters.AddWithValue("@publishedYear", book.PublishedYear);
+                DatabaseConn.cmd.Parameters.AddWithValue("@publisher", book.Publisher);
+                DatabaseConn.cmd.Parameters.AddWithValue("@isbn", book.ISBN);
+                DatabaseConn.cmd.Parameters.AddWithValue("@pages", book.Pages);
+                DatabaseConn.cmd.Parameters.AddWithValue("@birthDate", book.UnitPrice);
 
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                try
+                {
+                    DatabaseConn.conn.Open();
+                    DatabaseConn.cmd.ExecuteNonQuery();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
         }
 
         public bool Delete(int id)
         {
-            DatabaseConn.cmd = new SqlCommand("usp_Book_Delete", DatabaseConn.conn);
-            DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
-            DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
-
-            try
+            using (DatabaseConn.conn = new SqlConnection(DatabaseConn.conString))
             {
-                DatabaseConn.conn.Open();
-                DatabaseConn.cmd.ExecuteNonQuery();
+                DatabaseConn.cmd = new SqlCommand("usp_Book_Delete", DatabaseConn.conn);
+                DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
+                DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
 
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                try
+                {
+                    DatabaseConn.conn.Open();
+                    DatabaseConn.cmd.ExecuteNonQuery();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
         }
 
@@ -199,7 +205,6 @@ namespace MyLibrary.Access
         {
             foreach (Category item in categories)
             {
-                using (DatabaseConn.conn = new SqlConnection(DatabaseConn.conString))
                 {
                     DatabaseConn.cmd = new SqlCommand("usp_Category_Add_Book_Category", DatabaseConn.conn);
                     DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;

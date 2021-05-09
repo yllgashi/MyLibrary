@@ -115,40 +115,46 @@ namespace MyLibrary.Access
 
         public bool Update(int id, Category category)
         {
-            DatabaseConn.cmd = new SqlCommand("usp_Category_Update", DatabaseConn.conn);
-            DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
-            DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
-            DatabaseConn.cmd.Parameters.AddWithValue("@bookId", category.Description);
-
-            try
+            using (DatabaseConn.conn = new SqlConnection(DatabaseConn.conString))
             {
-                DatabaseConn.conn.Open();
-                DatabaseConn.cmd.ExecuteNonQuery();
+                DatabaseConn.cmd = new SqlCommand("usp_Category_Update", DatabaseConn.conn);
+                DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
+                DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
+                DatabaseConn.cmd.Parameters.AddWithValue("@bookId", category.Description);
 
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                try
+                {
+                    DatabaseConn.conn.Open();
+                    DatabaseConn.cmd.ExecuteNonQuery();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
         }
 
         public bool Delete(int id)
         {
-            DatabaseConn.cmd = new SqlCommand("usp_Category_Delete", DatabaseConn.conn);
-            DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
-            DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
-
-            try
+            using (DatabaseConn.conn = new SqlConnection(DatabaseConn.conString))
             {
-                DatabaseConn.conn.Open();
-                DatabaseConn.cmd.ExecuteNonQuery();
+                DatabaseConn.cmd = new SqlCommand("usp_Category_Delete", DatabaseConn.conn);
+                DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
+                DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
 
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                try
+                {
+                    DatabaseConn.conn.Open();
+                    DatabaseConn.cmd.ExecuteNonQuery();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
         }
 

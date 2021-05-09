@@ -122,42 +122,48 @@ namespace MyLibrary.DataAccess
 
         public bool Update(int id, Author author)
         {
-            DatabaseConn.cmd = new SqlCommand("usp_Author_Update", DatabaseConn.conn);
-            DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
-            DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
-            DatabaseConn.cmd.Parameters.AddWithValue("@firstName", author.FirstName);
-            DatabaseConn.cmd.Parameters.AddWithValue("@lastName", author.LastName);
-            DatabaseConn.cmd.Parameters.AddWithValue("@birthDate", author.BirthDate);
-
-            try
+            using (DatabaseConn.conn = new SqlConnection(DatabaseConn.conString))
             {
-                DatabaseConn.conn.Open();
-                DatabaseConn.cmd.ExecuteNonQuery();
+                DatabaseConn.cmd = new SqlCommand("usp_Author_Update", DatabaseConn.conn);
+                DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
+                DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
+                DatabaseConn.cmd.Parameters.AddWithValue("@firstName", author.FirstName);
+                DatabaseConn.cmd.Parameters.AddWithValue("@lastName", author.LastName);
+                DatabaseConn.cmd.Parameters.AddWithValue("@birthDate", author.BirthDate);
 
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                try
+                {
+                    DatabaseConn.conn.Open();
+                    DatabaseConn.cmd.ExecuteNonQuery();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
         }
 
         public bool Delete(int id)
         {
-            DatabaseConn.cmd = new SqlCommand("usp_Author_Delete", DatabaseConn.conn);
-            DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
-            DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
-
-            try
+            using (DatabaseConn.conn = new SqlConnection(DatabaseConn.conString))
             {
-                DatabaseConn.conn.Open();
-                DatabaseConn.cmd.ExecuteNonQuery();
+                DatabaseConn.cmd = new SqlCommand("usp_Author_Delete", DatabaseConn.conn);
+                DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
+                DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
 
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                try
+                {
+                    DatabaseConn.conn.Open();
+                    DatabaseConn.cmd.ExecuteNonQuery();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
         }
 
