@@ -75,6 +75,7 @@ namespace MyLibrary.Access
                 DatabaseConn.cmd = new SqlCommand("usp_Offer_Create", DatabaseConn.conn);
                 DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
                 DatabaseConn.cmd.Parameters.AddWithValue("@days", offer.Days);
+                DatabaseConn.cmd.Parameters.AddWithValue("@price", offer.Price);
                 DatabaseConn.cmd.Parameters.AddWithValue("@description", offer.Description);
 
                 try
@@ -99,6 +100,7 @@ namespace MyLibrary.Access
                 DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
                 DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
                 DatabaseConn.cmd.Parameters.AddWithValue("@days", offer.Days);
+                DatabaseConn.cmd.Parameters.AddWithValue("@price", offer.Price);
                 DatabaseConn.cmd.Parameters.AddWithValue("@description", offer.Description);
 
                 try
@@ -143,7 +145,7 @@ namespace MyLibrary.Access
             {
                 OfferId = int.Parse(reader["OfferId"].ToString()),
                 Days = int.Parse(reader["Days"].ToString()),
-                Price = int.Parse(reader["Price"].ToString()),
+                Price = double.Parse(reader["Price"].ToString()),
                 Description = reader["Description"].ToString(),
             };
             return offer;

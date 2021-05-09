@@ -4,14 +4,23 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<style>
+    td {
+        text-decoration: none;
+    }
+</style>
+<div class="container">
+    <h1 class="d-md-inline-flex">Author</h1>
+    <p class="d-sm-inline" style="margin-left:59%; ">
+        <a class="btn btn-secondary btn-md active" role="button" asp-area="" asp-controller="Author" asp-action="Create" style="margin-left: 70px;
+        margin-bottom: 10px;">Create New</a>
+    </p>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
-        <tr>
+        <tr style="background-color:slategrey">
+            <th class="align-content-xl-start">
             <th>
                 @Html.DisplayNameFor(model => model.BookRentId)
             </th>
@@ -28,26 +37,33 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookRentId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClientId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RentDate)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.BookRentId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.BookRentId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.BookRentId })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookRentId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RentDate)
+                </td>
+                <td>
+                    <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.BookRentId })
+                    </button>
+                    <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
+                        @Html.ActionLink("Details", "Details", new { id = item.BookRentId })
+                    </button>
+                    <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
+                        @Html.ActionLink("Delete", "Delete", new { id = item.BookRentId })
+                    </button>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
