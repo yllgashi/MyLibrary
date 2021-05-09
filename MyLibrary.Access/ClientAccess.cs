@@ -114,6 +114,8 @@ namespace MyLibrary.Access
                 }
             }
 
+            // usp_
+
             return client;
         }
 
@@ -227,6 +229,17 @@ namespace MyLibrary.Access
                 BookId = int.Parse(reader["BookId"].ToString()),
                 ClientId = int.Parse(reader["ClientId"].ToString()),
                 RentDate = DateTime.Parse(reader["RentDate"].ToString()),
+                Book = new Book()
+                {
+                    BookId = int.Parse(reader["BookId"].ToString()),
+                    Title = reader["Title"].ToString(),
+                    Summary = reader["Summary"].ToString(),
+                    PublishedYear = short.Parse(reader["PublishedYear"].ToString()),
+                    Publisher = reader["Publisher"].ToString(),
+                    ISBN = reader["ISBN"].ToString(),
+                    Pages = int.Parse(reader["Pages"].ToString()),
+                    UnitPrice = double.Parse(reader["UnitPrice"].ToString())
+                }
             };
 
             return bookRent;
