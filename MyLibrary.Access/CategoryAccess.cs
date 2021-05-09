@@ -67,7 +67,7 @@ namespace MyLibrary.Access
 
             using (DatabaseConn.conn = new SqlConnection(DatabaseConn.conString))
             {
-                DatabaseConn.cmd = new SqlCommand("usp_Get_Books_By_Category", DatabaseConn.conn);
+                DatabaseConn.cmd = new SqlCommand("usp_Category_Get_Books_By_Category", DatabaseConn.conn);
                 DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
                 DatabaseConn.da = new SqlDataAdapter(DatabaseConn.cmd);
                 DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
@@ -120,7 +120,8 @@ namespace MyLibrary.Access
                 DatabaseConn.cmd = new SqlCommand("usp_Category_Update", DatabaseConn.conn);
                 DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
                 DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
-                DatabaseConn.cmd.Parameters.AddWithValue("@bookId", category.Description);
+                DatabaseConn.cmd.Parameters.AddWithValue("@categoryId", category.CategoryId);
+                DatabaseConn.cmd.Parameters.AddWithValue("@description", category.Description);
 
                 try
                 {

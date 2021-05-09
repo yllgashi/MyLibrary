@@ -133,7 +133,7 @@ namespace MyLibrary.Access
                 DatabaseConn.cmd.Parameters.AddWithValue("@publisher", book.Publisher);
                 DatabaseConn.cmd.Parameters.AddWithValue("@isbn", book.ISBN);
                 DatabaseConn.cmd.Parameters.AddWithValue("@pages", book.Pages);
-                DatabaseConn.cmd.Parameters.AddWithValue("@birthDate", book.UnitPrice);
+                DatabaseConn.cmd.Parameters.AddWithValue("@unitPrice", book.UnitPrice);
 
                 try
                 {
@@ -146,7 +146,28 @@ namespace MyLibrary.Access
                 }
             }
 
-            CreateBookCategories(book.Categories, book.BookId);
+            if (book.Categories != null)
+            {
+                foreach (Category item in book.Categories)
+                {
+                    {
+                        DatabaseConn.cmd = new SqlCommand("usp_Category_Add_Book_Category", DatabaseConn.conn);
+                        DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
+                        DatabaseConn.cmd.Parameters.AddWithValue("@categoryId", item.CategoryId);
+                        DatabaseConn.cmd.Parameters.AddWithValue("@bookId", book.BookId);
+
+                        try
+                        {
+                            DatabaseConn.conn.Open();
+                            DatabaseConn.cmd.ExecuteNonQuery();
+                        }
+                        catch (Exception ex)
+                        {
+                            throw ex;
+                        }
+                    }
+                }
+            }
             return true;
         }
 
@@ -163,7 +184,7 @@ namespace MyLibrary.Access
                 DatabaseConn.cmd.Parameters.AddWithValue("@publisher", book.Publisher);
                 DatabaseConn.cmd.Parameters.AddWithValue("@isbn", book.ISBN);
                 DatabaseConn.cmd.Parameters.AddWithValue("@pages", book.Pages);
-                DatabaseConn.cmd.Parameters.AddWithValue("@birthDate", book.UnitPrice);
+                DatabaseConn.cmd.Parameters.AddWithValue("@unitPrice", book.UnitPrice);
 
                 try
                 {
@@ -199,30 +220,6 @@ namespace MyLibrary.Access
                     throw ex;
                 }
             }
-        }
-
-        public bool CreateBookCategories(List<Category> categories, int bookId)
-        {
-            foreach (Category item in categories)
-            {
-                {
-                    DatabaseConn.cmd = new SqlCommand("usp_Category_Add_Book_Category", DatabaseConn.conn);
-                    DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
-                    DatabaseConn.cmd.Parameters.AddWithValue("@categoryId", item.CategoryId);
-                    DatabaseConn.cmd.Parameters.AddWithValue("@bookId", bookId);
-
-                    try
-                    {
-                        DatabaseConn.conn.Open();
-                        DatabaseConn.cmd.ExecuteNonQuery();
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
-                }
-            }
-            return true;
         }
 
         private Book GetBookFromDb(SqlDataReader reader)
