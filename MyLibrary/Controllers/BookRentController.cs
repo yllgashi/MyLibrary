@@ -12,6 +12,7 @@ namespace MyLibrary.Controllers
     {
         BookRentService bookRentService;
 
+        [HttpGet]
         public IActionResult Index()
         {
             bookRentService = new BookRentService();
@@ -20,7 +21,8 @@ namespace MyLibrary.Controllers
             return View(bookRents);
         }
 
-        public IActionResult Get(int id)
+        [HttpGet]
+        public IActionResult Details(int id)
         {
             bookRentService = new BookRentService();
             try
@@ -28,6 +30,90 @@ namespace MyLibrary.Controllers
                 BookRent bookRent = bookRentService.Get(id);
 
                 return View(bookRent);
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(BookRent bookRent)
+        {
+            bookRentService = new BookRentService();
+            try
+            {
+                bookRentService.Create(bookRent);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            bookRentService = new BookRentService();
+            try
+            {
+                if (id == 0) throw new Exception();
+                BookRent bookRent = bookRentService.Get(id);
+                return View(bookRent);
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Edit(BookRent bookRent)
+        {
+            bookRentService = new BookRentService();
+            try
+            {
+                bookRentService.Update(bookRent.BookRentId, bookRent);
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            bookRentService = new BookRentService();
+            try
+            {
+                if (id == 0) throw new Exception();
+                BookRent bookRent = bookRentService.Get(id);
+                return View(bookRent);
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult DeleteObject(int id)
+        {
+            bookRentService = new BookRentService();
+            try
+            {
+                bookRentService.Delete(id);
+                return RedirectToAction("Index");
             }
             catch (Exception)
             {

@@ -34,5 +34,102 @@ namespace MyLibrary.Controllers
                 return View("Error");
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Offer offer)
+        {
+            offerService = new OfferService();
+            try
+            {
+                offerService.Create(offer);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            offerService = new OfferService();
+            try
+            {
+                if (id == 0) throw new Exception();
+                Offer offer = offerService.Get(id);
+                return View(offer);
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Offer offer)
+        {
+            offerService = new OfferService();
+            try
+            {
+                offerService.Update(offer.OfferId, offer);
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            offerService = new OfferService();
+            try
+            {
+                if (id == 0) throw new Exception();
+                Offer offer = offerService.Get(id);
+                return View(offer);
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult DeleteObject(int id)
+        {
+            offerService = new OfferService();
+            try
+            {
+                offerService.Delete(id);
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+        }
     }
 }
