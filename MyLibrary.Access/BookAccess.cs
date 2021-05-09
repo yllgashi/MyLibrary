@@ -15,7 +15,7 @@ namespace MyLibrary.Access
             List<Book> books = new List<Book>();
             using (DatabaseConn.conn = new SqlConnection(DatabaseConn.conString))
             {
-                DatabaseConn.cmd = new SqlCommand("usp_Book_GetList", DatabaseConn.conn);
+                DatabaseConn.cmd = new SqlCommand("usp_Book_Get_List", DatabaseConn.conn);
                 DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
                 DatabaseConn.da = new SqlDataAdapter(DatabaseConn.cmd);
 

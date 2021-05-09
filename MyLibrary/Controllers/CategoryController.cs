@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyLibrary.DataService;
+using MyLibrary.Access;
 using MyLibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -8,26 +8,26 @@ using System.Threading.Tasks;
 
 namespace MyLibrary.Controllers
 {
-    public class BookController : Controller
+    public class CategoryController : Controller
     {
-        BookService bookService;
+        CategoryAccess categoryAccess;
 
         public IActionResult Index()
         {
-            bookService = new BookService();
-            List<Book> books = bookService.GetList();
+            categoryAccess = new CategoryAccess();
+            List<Category> categories = categoryAccess.GetList();
 
-            return View(books);
+            return View(categories);
         }
 
         public IActionResult Get(int id)
         {
-            bookService = new BookService();
+            categoryAccess = new CategoryAccess();
             try
             {
-                Book book = bookService.Get(id);
+                Category category = categoryAccess.Get(id);
 
-                return View(book);
+                return View(category);
             }
             catch (Exception)
             {

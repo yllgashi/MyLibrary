@@ -34,5 +34,37 @@ namespace MyLibrary.Controllers
                 return View("Error");
             }
         }
+
+        public IActionResult Update(int id)
+        {
+            authorService = new AuthorService();
+            try
+            {
+                Author author = authorService.Get(id);
+                authorService.Update(id, author);
+
+                return View(author);
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+        }
+
+        public IActionResult Delete(int id)
+        {
+            authorService = new AuthorService();
+            try
+            {
+                Author author = authorService.Get(id);
+                authorService.Update(id, author);
+
+                return View(author);
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+        }
     }
 }

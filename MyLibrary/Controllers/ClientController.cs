@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyLibrary.Access;
+using MyLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +10,29 @@ namespace MyLibrary.Controllers
 {
     public class ClientController : Controller
     {
+        ClientAccess clientAccess;
+
         public IActionResult Index()
         {
-            string json = "asd";
+            clientAccess = new ClientAccess();
+            List<Client> clients = clientAccess.GetList();
 
+            return View(clients);
+        }
 
-            return View(json);
+        public IActionResult Get(int id)
+        {
+            clientAccess = new ClientAccess();
+            try
+            {
+                Client client = clientAccess.Get(id);
+
+                return View(client);
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
     }
 }

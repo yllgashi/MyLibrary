@@ -8,26 +8,26 @@ using System.Threading.Tasks;
 
 namespace MyLibrary.Controllers
 {
-    public class BookController : Controller
+    public class BookRentController : Controller
     {
-        BookService bookService;
+        BookRentService bookRentService;
 
         public IActionResult Index()
         {
-            bookService = new BookService();
-            List<Book> books = bookService.GetList();
+            bookRentService = new BookRentService();
+            List<BookRent> bookRents = bookRentService.GetList();
 
-            return View(books);
+            return View(bookRents);
         }
 
         public IActionResult Get(int id)
         {
-            bookService = new BookService();
+            bookRentService = new BookRentService();
             try
             {
-                Book book = bookService.Get(id);
+                BookRent bookRent = bookRentService.Get(id);
 
-                return View(book);
+                return View(bookRent);
             }
             catch (Exception)
             {
