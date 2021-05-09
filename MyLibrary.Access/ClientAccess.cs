@@ -211,7 +211,7 @@ namespace MyLibrary.Access
                 {
                     OfferId = int.Parse(reader["OfferId"].ToString()),
                     Days = int.Parse(reader["Days"].ToString()),
-                    Price = int.Parse(reader["Price"].ToString()),
+                    Price = double.Parse(reader["Price"].ToString()),
                     Description = reader["Description"].ToString(),
                 },
                 AgreementDate = DateTime.Parse(reader["AgreementDate"].ToString()),
