@@ -20,7 +20,7 @@ namespace MyLibrary.Controllers
             return View(offers);
         }
 
-        public IActionResult Get(int id)
+        public IActionResult Details(int id)
         {
             offerService = new OfferService();
             try
@@ -34,19 +34,6 @@ namespace MyLibrary.Controllers
                 return View("Error");
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         [HttpGet]
         public IActionResult Create()
