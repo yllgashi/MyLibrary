@@ -1,17 +1,21 @@
 ﻿@model IEnumerable<MyLibrary.Models.Book>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Books";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="container">
+    <h1 class="d-md-inline-flex">Books</h1>
+    <p class="d-sm-inline" style="margin-left:59%; ">
+        <a class="btn btn-secondary btn-md active" role="button" asp-area="" asp-controller="Book" asp-action="Create" style="margin-left: 80px;
+        margin-bottom: 10px;">Create New</a>
+    </p>
+</div>
 <table class="table">
     <thead>
-        <tr>
+        <tr style="background-color:slategrey">
+            
             <th>
                 @Html.DisplayNameFor(model => model.BookId)
             </th>
@@ -67,9 +71,15 @@
                 @Html.DisplayFor(modelItem => item.UnitPrice)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ })
+                </button>
+                <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
+                </button>
+                <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </button>
             </td>
         </tr>
 }

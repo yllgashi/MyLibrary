@@ -1,36 +1,30 @@
-﻿@model IEnumerable<MyLibrary.Models.Author>
+﻿@model IEnumerable<MyLibrary.Models.Offer>
 
 @{
-    ViewData["Title"] = "Author";
+    ViewData["Title"] = "Offers";
 }
 
-<style>
-        td {
-            text-decoration:none;
-        }
-</style>
 <div class="container">
-    <h1 class="d-md-inline-flex">Author</h1>
+    <h1 class="d-md-inline-flex">Offers</h1>
     <p class="d-sm-inline" style="margin-left:59%; ">
-        <a class="btn btn-secondary btn-md active" role="button" asp-area="" asp-controller="Author" asp-action="Create" style="margin-left: 70px;
+        <a class="btn btn-secondary btn-md active" role="button" asp-area="" asp-controller="Offer" asp-action="Create" style="margin-left: 50px;
         margin-bottom: 10px;">Create New</a>
     </p>
 </div>
-
 <table class="table">
     <thead>
         <tr style="background-color:slategrey">
-            <th class="align-content-xl-start" >
-                @Html.DisplayNameFor(model => model.AuthorId)
+            <th>
+                @Html.DisplayNameFor(model => model.OfferId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                @Html.DisplayNameFor(model => model.Days)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BirthDate)
+                @Html.DisplayNameFor(model => model.Description)
             </th>
             <th></th>
         </tr>
@@ -39,16 +33,16 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.AuthorId)
+                @Html.DisplayFor(modelItem => item.OfferId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
+                @Html.DisplayFor(modelItem => item.Days)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastName)
+                @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BirthDate)
+                @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
                 <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
