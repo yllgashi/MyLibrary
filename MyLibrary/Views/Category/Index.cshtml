@@ -11,6 +11,28 @@
         margin-bottom: 10px;">Create New</a>
     </p>
 </div>
+@*<div class=" container card">
+    <div class="card-header " >
+        <h5 class="col-6">
+
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </h5>
+
+        <h5 class="col-6">
+            @Html.DisplayNameFor(model => model.Description)
+
+        </h5>
+    </div>
+    <div class="card-body">
+        @foreach (var item in Model)
+        {
+        <p> @Html.DisplayFor(modelItem => item.CategoryId)</p>
+        <p>  @Html.DisplayFor(modelItem => item.Description)</p>
+
+        }
+    </div>
+</div>*@
+
 <table class="table">
     <thead>
         <tr style="background-color:slategrey">
@@ -24,7 +46,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.CategoryId)

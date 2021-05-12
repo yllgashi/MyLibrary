@@ -12,10 +12,35 @@
         margin-bottom: 10px;">Create New</a>
     </p>
 </div>
+@*<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="..." alt="Card image cap">
+
+
+    <h5 class="card-title">@Html.DisplayNameFor(model => model.Title)</h5>
+    <p class="card-text"> @Html.DisplayNameFor(model => model.Summary)</p>
+    <p class="card-title">@Html.DisplayNameFor(model => model.Publisher)</p>
+    <p class="card-title">@Html.DisplayNameFor(model => model.ISBN)</p>
+    <p>@Html.DisplayNameFor(model => model.Pages)</p>
+    <p>@Html.DisplayNameFor(model => model.UnitPrice)</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+
+
+    @foreach (var item in Model)
+    {
+        <div class="card-body">
+            <h5 class="card-title">@Html.DisplayFor(model => model.Title)</h5>
+            <p class="card-text"> @Html.DisplayFor(model => model.Summary)</p>
+            <p class="card-title">@Html.DisplayFor(model => model.Publisher)</p>
+            <p class="card-title">@Html.DisplayFor(model => model.ISBN)</p>
+            <p>@Html.DisplayFor(model => model.Pages)</p>
+            <p>@Html.DisplayFor(model => model.UnitPrice)</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+            }*@
 <table class="table">
     <thead>
         <tr style="background-color:slategrey">
-            
+
             <th>
                 @Html.DisplayNameFor(model => model.BookId)
             </th>
@@ -44,44 +69,45 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Summary)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PublishedYear)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Publisher)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ISBN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pages)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UnitPrice)
-            </td>
-            <td>
-                <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
-                    @Html.ActionLink("Edit", "Edit", new { id = item.BookId })
-                </button>
-                <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
-                    @Html.ActionLink("Details", "Details", new { id = item.BookId })
-                </button>
-                <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
-                    @Html.ActionLink("Delete", "Delete", new { id = item.BookId })
-                </button>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Summary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublishedYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Publisher)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ISBN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pages)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>
+                <td>
+                    <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.BookId })
+                    </button>
+                    <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
+                        @Html.ActionLink("Details", "Details", new { id = item.BookId })
+                    </button>
+                    <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
+                        @Html.ActionLink("Delete", "Delete", new { id = item.BookId })
+                    </button>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
