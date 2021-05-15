@@ -19,7 +19,7 @@
     </style>
 </head>
 <body>
-    <header style="margin-bottom:35px;">
+    <header>
         
         <nav class="navbar nav-tabs navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container">
@@ -48,9 +48,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Client" asp-action="Index">Client</a>
                         </li>
+                        <li class="nav-item pt-2 pl-lg-5">
+                            <input type="text" placeholder="Search..">
+                        </li>
+                       
                         @*<li class="nav-item">
-                        <a class="btn btn-light btn-md active" role="button" asp-area="" asp-controller="Log In" asp-action="Index" style="margin-left:83px;">Log In</a>
-                    </li>*@
+            <a class="btn btn-light btn-md active" role="button" asp-area="" asp-controller="Log In" asp-action="Index" style="margin-left:83px;">Log In</a>
+        </li>*@
                     </ul>
                 </div>
             </div>
