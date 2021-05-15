@@ -9,10 +9,12 @@
 
     <style>
         .nav-item {
-           padding-left:30px;
+           padding-left:20px;
         }
         .navbar {
-            box-shadow:rgba(0,0,0,0)2px 2px inset;
+            border: 1px solid;
+            padding: 10px;
+            box-shadow: 2px 2px 10px #23153d;
         }
      
 
@@ -39,9 +41,19 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Book" asp-action="Index">Book</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-light dropdown-toggle" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item bg-light" href="#">Action</a>
+                                <a class="dropdown-item bg-light" href="#">Romance</a>
+                                <a class="dropdown-item bg-light" href="#">Drama</a>
+                                <a class="dropdown-item bg-light" href="#">Science</a>
+                                <a class="dropdown-item bg-light" href="#">Classic Literature</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item bg-light" href="#">Special Editions</a>
+                            </div>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Offer" asp-action="Index">Offer</a>
                         </li>
@@ -51,9 +63,8 @@
                         <li class="nav-item pt-2 pl-lg-5">
                             <input type="text" placeholder="Search..">
                         </li>
-                       
                         @*<li class="nav-item">
-            <a class="btn btn-light btn-md active" role="button" asp-area="" asp-controller="Log In" asp-action="Index" style="margin-left:83px;">Log In</a>
+            <a class="btn btn-light btn-md active" role="button" asp-area="" asp-controller="Log In" asp-action="Index">Log In</a>
         </li>*@
                     </ul>
                 </div>
