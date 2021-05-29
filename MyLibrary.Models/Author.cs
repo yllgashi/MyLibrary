@@ -10,14 +10,17 @@ namespace MyLibrary.Models
     public class Author
     {
         public int AuthorId { get; set; }
-        [Required]
-        [StringLength(50, MinimumLength = 3)]
-        [RegularExpression("^[A-Z][a-zA-Z]*$")]
+
+        [Required(ErrorMessage = "First name is required")]
+        [StringLength(70, MinimumLength = 3, ErrorMessage = "Incorrect first name!")]
+        [RegularExpression("^[A-Z][a-zA-Z]*$", ErrorMessage = "Incorrect first name!")]
         public string FirstName { get; set; }
-        [Required]
-        [StringLength(50, MinimumLength = 3)]
-        [RegularExpression("^[A-Z][a-zA-Z]*$")]
+
+        [Required(ErrorMessage = "Last name is required")]
+        [StringLength(70, MinimumLength = 2, ErrorMessage = "Incorrect last name!")]
+        [RegularExpression("^[A-Z][a-zA-Z]*$", ErrorMessage = "Incorrect last name!")]
         public string LastName { get; set; }
+
         [Required]
         public DateTime BirthDate { get; set; }
         public List<Book> Books { get; set; }
