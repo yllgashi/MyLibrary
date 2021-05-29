@@ -9,26 +9,29 @@ namespace MyLibrary.Models
     public class Book
     {
         public int BookId { get; set; }
-        [Required]
-        [StringLength(50)]
+        [Required(ErrorMessage = "Title is required")]
+        [StringLength(100, ErrorMessage = "Title is incorrect!")]
         public string Title { get; set; }
 
-        [Required]
-        [StringLength(150)]
+        [Required(ErrorMessage = "Summary is required")]
+        [StringLength(100, ErrorMessage = "Summary is incorrect!")]
         public string Summary { get; set; }
 
-        [Required]
-        [MaxLength(4)]
-        [RegularExpression(@"^\d$")]
+        [Required(ErrorMessage = "Published year is required")]
+        [MaxLength(4, ErrorMessage = "Year is incorrect!")]
+        [RegularExpression(@"^\d$", ErrorMessage = "Year is incorrect!")]
         public short PublishedYear { get; set; }
 
+        [Required(ErrorMessage = "Publisher is required")]
+        [MaxLength(40, ErrorMessage = "Publisher is incorrect!")]
         public string Publisher { get; set; }
-        [Required]
-        [MaxLength(15)]
-        [MinLength(15)]
+        [Required(ErrorMessage = "ISBN is required")]
+        [MaxLength(15, ErrorMessage = "ISBN is incorrect!")]
+        [MinLength(15, ErrorMessage = "ISBN is incorrect!")]
         public string ISBN { get; set; }
 
         [RegularExpression(@"^\d$")]
+        [MaxLength(3, ErrorMessage = "Number of pages is incorrect")]
         public int Pages { get; set; }
 
         [RegularExpression(@"^\d$")]

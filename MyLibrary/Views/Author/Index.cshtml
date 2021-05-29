@@ -5,55 +5,55 @@
 }
 
 <style>
-   .authors {
+    .authors {
         text-align: center;
         transition: all 0.5s ease 0s;
         margin-bottom: 30px;
     }
 
-   .authors:hover {
+        .authors:hover {
             box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-    }
+        }
 
-   .authors .pic {
+        .authors .pic {
             overflow: hidden;
             position: relative;
-            width:250px;
-            height:250px;
-    }
+            width: 250px;
+            height: 250px;
+        }
 
-    .authors .pic:before,
-    .authors.pic:after {
-        content: "";
-        width: 200%;
-        height: 80%;
-        background: rgba(14, 55, 82, 0.8);
-        position: absolute;
-        opacity: 1;
-        top: -100%;
-        left: -4%;
-        transform: rotate(45deg);
-        transition: all 0.5s ease 0s;
-    }
+            .authors .pic:before,
+            .authors.pic:after {
+                content: "";
+                width: 200%;
+                height: 80%;
+                background: rgba(14, 55, 82, 0.8);
+                position: absolute;
+                opacity: 1;
+                top: -100%;
+                left: -4%;
+                transform: rotate(45deg);
+                transition: all 0.5s ease 0s;
+            }
 
-    .authors .pic:after {
-        background: rgba(14, 55, 82, 0.8));
-        top: auto;
-        left: auto;
-        bottom: -100%;
-        right: -4%;
-    }
+            .authors .pic:after {
+                background: rgba(14, 55, 82, 0.8));
+                top: auto;
+                left: auto;
+                bottom: -100%;
+                right: -4%;
+            }
 
-   .authors:hover .pic:before {
+        .authors:hover .pic:before {
             top: 0;
-    }
+        }
 
-   .authors:hover .pic:after {
+        .authors:hover .pic:after {
             bottom: 0;
-    }
+        }
 
 
-   .authors .social {
+        .authors .social {
             width: 100%;
             padding: 0;
             margin: 0;
@@ -64,13 +64,13 @@
             opacity: 0;
             z-index: 2;
             transition: all 0.5s ease 0.3s;
-    }
+        }
 
-   .authors:hover .social {
+        .authors:hover .social {
             opacity: 1;
-    }
+        }
 
-   button {
+    button {
         display: block;
         width: 63px;
         height: 50px;
@@ -78,52 +78,55 @@
         font-size: 20px;
         color: #fff;
         margin-right: 10px;
-        margin-bottom:10px;
+        margin-bottom: 10px;
         position: relative;
         transition: all 0.3s ease 0s;
-        padding-right:0;
-        text-decoration:none;
-    }
-    button:after {
-        content: "";
-        width: 100%;
-        height: 100%;
-        font-weight: bolder;
-        background: rgba(14, 55, 82, 0.8);
-        border-radius: 0 20px 20px 20px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: -1;
-        transition: all 0.3s ease 0s;
-    }
-    button a {
-        color: white;
+        padding-right: 0;
         text-decoration: none;
     }
-   button:hover:after {
-         transform: rotate(180deg);
-         text-decoration-color:white;
+
+        button:after {
+            content: "";
+            width: 100%;
+            height: 100%;
+            font-weight: bolder;
+            background: rgba(14, 55, 82, 0.8);
+            border-radius: 0 20px 20px 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            transition: all 0.3s ease 0s;
+        }
+
+        button a {
+            color: white;
+            text-decoration: none;
+        }
+
+        button:hover:after {
+            transform: rotate(180deg);
+            text-decoration-color: white;
+        }
+
+    .authors .author-content {
+        padding: 20px;
     }
 
-   .authors .author-content {
-            padding: 20px;
+    .authors .title {
+        font-size: 22px;
+        font-weight: 100;
+        letter-spacing: 2px;
+        color: #535b80;
+        text-transform: uppercase;
+        margin-bottom: 7px;
     }
 
-   .authors .title {
-            font-size: 22px;
-            font-weight: 100;
-            letter-spacing: 2px;
-            color: #535b80;
-            text-transform: uppercase;
-            margin-bottom: 7px;
-    }
-
-   .authors.post {
-            display: block;
-            font-size: 17px;
-            font-weight: 600;
-            color: #333333;
+    .authors.post {
+        display: block;
+        font-size: 17px;
+        font-weight: 600;
+        color: #333333;
     }
 </style>
 <div class="container">
@@ -135,6 +138,13 @@
 </div>
 <hr style="box-shadow:2px 2px 10px #23153d">
 <div class="container">
+    @*<input type="text" id="inputSearch">
+        <input type="button" value="Start" onclick="location.href='@Url.Action("Create", "User/")'" />*@
+    <form method="post">
+        <label for="keyword">Search</label>
+        <input type="text" name="keyword" id="keyword" placeholder="Keyword" />
+        <input type="submit" asp-action="Index"/>
+    </form>
     <div class="row">
         @foreach (var item in Model)
         {
@@ -163,10 +173,8 @@
                             @Html.ActionLink("Delete", "Delete", new { id = item.AuthorId })
                         </button>
                     </div>
-                    </div>
                 </div>
+            </div>
         }
     </div>
 </div>
-           
-      
