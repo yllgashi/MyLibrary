@@ -1,5 +1,6 @@
 ﻿using MyLibrary.Access;
 using MyLibrary.Models;
+using MyLibrary.Models.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,10 @@ namespace MyLibrary.DataService
 
         public bool Create(Client client)
         {
+            // validation
+            List<Client> clients = clientAccess.GetList();
+            int exists = clients.FindIndex(x => x.FirstName == client.FirstName && x.LastName == client.LastName && x.BirthDate == client.BirthDate);
+            if (exists != -1) throw new ObjectCreationException();
             return clientAccess.Create(client);
         }
 
