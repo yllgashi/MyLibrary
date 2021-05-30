@@ -5,55 +5,66 @@
 }
 
 <style>
-   .authors {
+    #myInput {
+        background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+        background-position: 10px 12px; /* Position the search icon */
+        background-repeat: no-repeat; /* Do not repeat the icon image */
+        width: 100%; /* Full-width */
+        font-size: 16px; /* Increase font-size */
+        padding: 12px 20px 12px 40px; /* Add some padding */
+        border: 1px solid #ddd; /* Add a grey border */
+        margin-bottom: 12px; /* Add some space below the input */
+    }
+
+    .authors {
         text-align: center;
         transition: all 0.5s ease 0s;
         margin-bottom: 30px;
     }
 
-   .authors:hover {
+        .authors:hover {
             box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-    }
+        }
 
-   .authors .pic {
+        .authors .pic {
             overflow: hidden;
             position: relative;
-            width:250px;
-            height:250px;
-    }
+            width: 250px;
+            height: 250px;
+        }
 
-    .authors .pic:before,
-    .authors.pic:after {
-        content: "";
-        width: 200%;
-        height: 80%;
-        background: rgba(14, 55, 82, 0.8);
-        position: absolute;
-        opacity: 1;
-        top: -100%;
-        left: -4%;
-        transform: rotate(45deg);
-        transition: all 0.5s ease 0s;
-    }
+            .authors .pic:before,
+            .authors.pic:after {
+                content: "";
+                width: 200%;
+                height: 80%;
+                background: rgba(14, 55, 82, 0.8);
+                position: absolute;
+                opacity: 1;
+                top: -100%;
+                left: -4%;
+                transform: rotate(45deg);
+                transition: all 0.5s ease 0s;
+            }
 
-    .authors .pic:after {
-        background: rgba(14, 55, 82, 0.8));
-        top: auto;
-        left: auto;
-        bottom: -100%;
-        right: -4%;
-    }
+            .authors .pic:after {
+                background: rgba(14, 55, 82, 0.8));
+                top: auto;
+                left: auto;
+                bottom: -100%;
+                right: -4%;
+            }
 
-   .authors:hover .pic:before {
+        .authors:hover .pic:before {
             top: 0;
-    }
+        }
 
-   .authors:hover .pic:after {
+        .authors:hover .pic:after {
             bottom: 0;
-    }
+        }
 
 
-   .authors .social {
+        .authors .social {
             width: 100%;
             padding: 0;
             margin: 0;
@@ -64,13 +75,13 @@
             opacity: 0;
             z-index: 2;
             transition: all 0.5s ease 0.3s;
-    }
+        }
 
-   .authors:hover .social {
+        .authors:hover .social {
             opacity: 1;
-    }
+        }
 
-   button {
+    button {
         display: block;
         width: 63px;
         height: 50px;
@@ -78,52 +89,55 @@
         font-size: 20px;
         color: #fff;
         margin-right: 10px;
-        margin-bottom:10px;
+        margin-bottom: 10px;
         position: relative;
         transition: all 0.3s ease 0s;
-        padding-right:0;
-        text-decoration:none;
-    }
-    button:after {
-        content: "";
-        width: 100%;
-        height: 100%;
-        font-weight: bolder;
-        background: rgba(14, 55, 82, 0.8);
-        border-radius: 0 20px 20px 20px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: -1;
-        transition: all 0.3s ease 0s;
-    }
-    button a {
-        color: white;
+        padding-right: 0;
         text-decoration: none;
     }
-   button:hover:after {
-         transform: rotate(180deg);
-         text-decoration-color:white;
+
+        button:after {
+            content: "";
+            width: 100%;
+            height: 100%;
+            font-weight: bolder;
+            background: rgba(14, 55, 82, 0.8);
+            border-radius: 0 20px 20px 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            transition: all 0.3s ease 0s;
+        }
+
+        button a {
+            color: white;
+            text-decoration: none;
+        }
+
+        button:hover:after {
+            transform: rotate(180deg);
+            text-decoration-color: white;
+        }
+
+    .authors .author-content {
+        padding: 20px;
     }
 
-   .authors .author-content {
-            padding: 20px;
+    .authors .title {
+        font-size: 22px;
+        font-weight: 100;
+        letter-spacing: 2px;
+        color: #535b80;
+        text-transform: uppercase;
+        margin-bottom: 7px;
     }
 
-   .authors .title {
-            font-size: 22px;
-            font-weight: 100;
-            letter-spacing: 2px;
-            color: #535b80;
-            text-transform: uppercase;
-            margin-bottom: 7px;
-    }
-
-   .authors.post {
-            display: block;
-            font-size: 17px;
-            font-weight: 600;
-            color: #333333;
+    .authors.post {
+        display: block;
+        font-size: 17px;
+        font-weight: 600;
+        color: #333333;
     }
 </style>
 <div class="container">
@@ -133,6 +147,8 @@
         margin-bottom: 10px;">Create New</a>
     </p>
 </div>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for authors..">
+
 <hr style="box-shadow:2px 2px 10px #23153d">
 <div class="container">
     <div class="row">
@@ -149,7 +165,7 @@
                         </ul>
                     </div>
                     <div class="author-content">
-                        <h3 class="title">   @Html.DisplayFor(modelItem => item.FirstName)   @Html.DisplayFor(modelItem => item.LastName)</h3>
+                        <h3 class="title" id="title">   @Html.DisplayFor(modelItem => item.FirstName)   @Html.DisplayFor(modelItem => item.LastName)</h3>
                         <span class="post">@Html.DisplayFor(modelItem => item.BirthDate)</span>
                     </div>
                     <div class="mb-2">
@@ -163,10 +179,34 @@
                             @Html.ActionLink("Delete", "Delete", new { id = item.AuthorId })
                         </button>
                     </div>
-                    </div>
                 </div>
+            </div>
         }
     </div>
 </div>
-           
-      
+<script type="text/javascript" src="jquery.dataTables.js"></script>
+<script type="text/javascript" src="sum().js"></script>
+
+@*<script>
+        function myFunction() {
+
+            var author,filter;
+            input = document.getElementById('myInput');
+            filter = input.value.toUpperCase();
+            /*FirstName = document.getElementById("title");*/
+            author = document.getElementsByClass("author-content")
+
+
+            for (i = 0; i < author.length; i++) {
+                a = author[i].getElementsById("title")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    author[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+    </script>*@
+
+
