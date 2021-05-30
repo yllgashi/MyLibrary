@@ -35,7 +35,7 @@ namespace MyLibrary.DataService
             // validation
             List<Author> authors = authorAccess.GetList();
             int exists = authors.FindIndex(x => x.FirstName == author.FirstName && x.LastName == author.LastName);
-            if (exists == -1) throw new ObjectCreationException();
+            if (exists != -1) throw new ObjectCreationException();
             return authorAccess.Create(author);
         }
 

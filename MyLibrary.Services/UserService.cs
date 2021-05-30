@@ -1,5 +1,6 @@
 ﻿using MyLibrary.Access;
 using MyLibrary.Models;
+using MyLibrary.Models.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,9 +27,13 @@ namespace MyLibrary.DataService
             return userAccess.Get(id);
         }
 
-        public bool Create(User book)
+        public bool Create(User user)
         {
-            return userAccess.Create(book);
+            // validation
+            List<User> users = userAccess.GetList();
+            int exists = users.FindIndex(x => x.Email == user.Email && x.Password == user.Password);
+            if (exists != -1) throw new ObjectCreationException();
+            return userAccess.Create(user);
         }
 
         public bool Update(int id, User book)
