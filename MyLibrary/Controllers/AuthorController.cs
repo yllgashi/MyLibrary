@@ -30,7 +30,6 @@ namespace MyLibrary.Controllers
 
             return View(authors);
         }
-
         [HttpGet]
         public IActionResult Details(int id)
         {

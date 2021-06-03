@@ -21,6 +21,16 @@ namespace MyLibrary.Controllers
             return View(books);
         }
 
+        [HttpPost]
+        public IActionResult Index(string keyword)
+        {
+            bookService = new BookService();
+            List<Book> book = bookService.GetList();
+            book = book.FindAll(x => x.Title == keyword);
+
+            return View(book);
+        }
+
         [HttpGet]
         public IActionResult Details(int id)
         {
