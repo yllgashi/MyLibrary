@@ -3,6 +3,8 @@
 }
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css" />
 </head>
 <body>
 
@@ -11,19 +13,67 @@
         <h1 class="col-7 d-inline" style="font-weight: normal; font-size:43px; padding-top:40px;">The easiest way to find a book!</h1>
         <hr>
     </div>
-    
+
     <div class="row mt-3">
-        <div class="col-8" >
+        <div class="col-8">
             <img src="~/img/header2.png" alt="image" class="img-fluid" />
         </div>
         <div class="col-4 float-right" style="border:solid #23153d 1px;border-radius:10px;">
             <p style="padding-top:20px; font-size:20px">
                 MyLibrary is a leading retailer of books, with a vast range of books from academic, popular and professional publishers.
+            </p>
             <p style="padding-top:20px; font-size:20px"> Access the library anytime, anywhere.</p>
             <p style="padding-top:20px; font-size:20px">Using 'My Library' you can: Have easy acess to your library account; Search and renew items online.</p>
-            </p>
+
         </div>
     </div>
+    @*<div class="row m-5">
+            <div class="col-12">
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" >
+                    <div class="carousel-item active col-5">
+                        <img src="/img/WE.jpg" alt="Book of the week" class="img-fluid">
+                        <div class="carousel-caption d-none d-md-block"style="background-color:darkgrey;">
+                            <h5>Wuthering Height</h5>
+                            <p>The most wanted Classic novel of the week.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item col-5" style="">
+                        <img src="/img/nw.jpg" alt="Book of the week"class="img-fluid">
+                        <div class="carousel-caption d-none d-md-block" style="background-color:darkgrey;">
+                            <h5>Norwegian Wood</h5>
+                            <p>The most wanted ‎Romance novel‎ of the week.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+    <div class="your-class">
+        <div>your content</div>
+        <div>your content</div>
+        <div>your content</div>
+    </div>
+
+   <script>
+       $(document).ready(function () {
+           $('.your-class').slick({
+               
+            });
+       });
+       $('.fade').slick({
+           dots: true,
+           infinite: true,
+           speed: 500,
+           fade: true,
+           cssEase: 'linear'
+       });
+   </script>
+
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="slick/slick.min.js"></script>
 </body>
 </html>
 
