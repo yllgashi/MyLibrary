@@ -148,9 +148,12 @@
         margin-bottom: 10px;">Create New</a>
     </p>
 </div>
-@*<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for authors..">*@
-
 <hr style="box-shadow:2px 2px 10px #23153d">
+<form method="post">
+    <label for="keyword"></label>
+    <input type="text" name="keyword" id="keyword" placeholder="Search for Authors..." />
+    <input type="submit" asp-action="Index"/>
+</form>
 <div class="container">
     @*<input type="text" id="inputSearch">
         <input type="button" value="Start" onclick="location.href='@Url.Action("Create", "User/")'" />*@
