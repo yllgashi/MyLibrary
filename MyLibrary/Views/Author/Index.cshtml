@@ -148,7 +148,7 @@
         margin-bottom: 10px;">Create New</a>
     </p>
 </div>
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for authors..">
+@*<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for authors..">*@
 
 <hr style="box-shadow:2px 2px 10px #23153d">
 <div class="container">
@@ -157,7 +157,7 @@
     <form method="post">
         <label for="keyword">Search</label>
         <input type="text" name="keyword" id="keyword" placeholder="Keyword" />
-        <input type="submit" asp-action="Index" />
+        <input type="submit" asp-action="Index" asp-controller="Details" />
     </form>
     <div class="row">
         @foreach (var item in Model)
@@ -191,8 +191,6 @@
             </div>
         }
     </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
 </div>
 <script type="text/javascript" src="jquery.dataTables.js"></script>
 <script type="text/javascript" src="sum().js"></script>
@@ -219,10 +217,3 @@
         }
     </script>*@
 
-
-=======
-</div>
->>>>>>> 3a166b8a1cdd1bfcac9d05aec4b2904e179ab7c8
-=======
-</div>
->>>>>>> 3a166b8a1cdd1bfcac9d05aec4b2904e179ab7c8
