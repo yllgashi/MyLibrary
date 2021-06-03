@@ -3,6 +3,18 @@
 @{
     ViewData["Title"] = "Client";
 }
+@* search form *@
+<form method="post">
+    <div class="input-group mb-3 col-5">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Find:</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="keyword" id="keyword">
+        <input type="submit" asp-action="Index" class="btn btn-info" value="Find" />
+    </div>
+</form>
+
+<br />
 
 <div class="container">
     <h1 class="d-md-inline-flex">Client</h1>
@@ -30,32 +42,33 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClientId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BirthDate)
-            </td>
-            <td>
-                <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ClientId })
-                </button>
-                <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
-                    @Html.ActionLink("Details", "Details", new { id = item.ClientId })
-                </button>
-                <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ClientId })
-                </button>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BirthDate)
+                </td>
+                <td>
+                    <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ClientId })
+                    </button>
+                    <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
+                        @Html.ActionLink("Details", "Details", new { id = item.ClientId })
+                    </button>
+                    <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ClientId })
+                    </button>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

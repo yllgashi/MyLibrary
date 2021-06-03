@@ -12,19 +12,26 @@
     }
 </style>
 
+@* search form *@
+<form method="post">
+    <div class="input-group mb-3 col-5">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Find:</span>
+        </div>
+        <input type="number" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="keyword" id="keyword">
+        <input type="submit" asp-action="Index" class="btn btn-info" value="Find" />
+    </div>
+</form>
+
+<br />
+
 <div class="container">
-    <h1 class="d-md-inline-flex">Book Rents</h1>
+    <h1 class="d-md-inline-flex">Authors</h1>
     <p class="d-sm-inline" style="margin-left:59%; ">
         <a class="btn btn-secondary btn-md active" role="button" asp-area="" asp-controller="Author" asp-action="Create" style="margin-left: 70px;
         margin-bottom: 10px;">Create New</a>
     </p>
 </div>
-@*@using (Html.BeginForm("Index", "BookRent", FormMethod.Get))
-            {
-                @Html.TextBox("searching")<input type="submit" value="Search"/>
-            }*@
-
-
 <table class="table" id="table">
     <thead>
         <tr style="background-color:slategrey">
@@ -45,16 +52,6 @@
         </tr>
     </thead>
     <tbody>
-        @*@if (Model.Count() == 0)
-            {
-                <tr class="col-3"> 
-                    <td>
-                        No Match Found
-                    </td>
-                </tr>
-        }
-        else
-          {*@
         @foreach (var item in Model)
         {
             <tr>
@@ -83,7 +80,7 @@
                 </td>
             </tr>
         }
-        
+
     </tbody>
 </table>
 

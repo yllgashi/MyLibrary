@@ -20,14 +20,17 @@ namespace MyLibrary.Controllers
 
             return View(bookRents);
         }
+
         [HttpPost]
         public IActionResult Index(int searching)
         {
             bookRentService = new BookRentService();
             List<BookRent> bookRents = bookRentService.GetList();
+            bookRents = bookRents.FindAll(x => x.BookRentId == searching);
 
-            return View(bookRents.Where(x => x.BookRentId == searching));
+            return View(bookRents);
         }
+
         [HttpGet]
         public IActionResult Details(int id)
         {

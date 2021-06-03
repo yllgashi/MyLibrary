@@ -12,10 +12,21 @@ namespace MyLibrary.Controllers
     {
         OfferService offerService;
 
+        [HttpGet]
         public IActionResult Index()
         {
             offerService = new OfferService();
             List<Offer> offers = offerService.GetList();
+
+            return View(offers);
+        }
+
+        [HttpPost]
+        public IActionResult Index(string keyword)
+        {
+            offerService = new OfferService();
+            List<Offer> offers = offerService.GetList();
+            offers = offers.FindAll(x => x.Description == keyword);
 
             return View(offers);
         }

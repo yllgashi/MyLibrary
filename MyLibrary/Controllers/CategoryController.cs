@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyLibrary.Access;
+using MyLibrary.DataService;
 using MyLibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -10,13 +10,23 @@ namespace MyLibrary.Controllers
 {
     public class CategoryController : Controller
     {
-        CategoryAccess categoryAccess;
+        CategoryService categoryService;
 
         [HttpGet]
         public IActionResult Index()
         {
-            categoryAccess = new CategoryAccess();
-            List<Category> categories = categoryAccess.GetList();
+            categoryService = new CategoryService();
+            List<Category> categories = categoryService.GetList();
+
+            return View(categories);
+        }
+
+        [HttpPost]
+        public IActionResult Index(string keyword)
+        {
+            categoryService = new CategoryService();
+            List<Category> categories = categoryService.GetList();
+            categories = categories.FindAll(x => x.Description == keyword);
 
             return View(categories);
         }
@@ -24,10 +34,10 @@ namespace MyLibrary.Controllers
         [HttpGet]
         public IActionResult Details(int id)
         {
-            categoryAccess = new CategoryAccess();
+            categoryService = new CategoryService();
             try
             {
-                Category category = categoryAccess.Get(id);
+                Category category = categoryService.Get(id);
 
                 return View(category);
             }
@@ -46,10 +56,10 @@ namespace MyLibrary.Controllers
         [HttpPost]
         public IActionResult Create(Category category)
         {
-            categoryAccess = new CategoryAccess();
+            categoryService = new CategoryService();
             try
             {
-                categoryAccess.Create(category);
+                categoryService.Create(category);
 
                 return RedirectToAction("Index");
             }
@@ -62,11 +72,11 @@ namespace MyLibrary.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            categoryAccess = new CategoryAccess();
+            categoryService = new CategoryService();
             try
             {
                 if (id == 0) throw new Exception();
-                Category category = categoryAccess.Get(id);
+                Category category = categoryService.Get(id);
                 return View(category);
             }
             catch (Exception)
@@ -78,10 +88,10 @@ namespace MyLibrary.Controllers
         [HttpPost]
         public IActionResult Edit(Category category)
         {
-            categoryAccess = new CategoryAccess();
+            categoryService = new CategoryService();
             try
             {
-                categoryAccess.Update(category.CategoryId, category);
+                categoryService.Update(category.CategoryId, category);
                 return RedirectToAction("Index");
             }
             catch (Exception)
@@ -93,11 +103,11 @@ namespace MyLibrary.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            categoryAccess = new CategoryAccess();
+            categoryService = new CategoryService();
             try
             {
                 if (id == 0) throw new Exception();
-                Category category = categoryAccess.Get(id);
+                Category category = categoryService.Get(id);
                 return View(category);
             }
             catch (Exception)
@@ -109,10 +119,10 @@ namespace MyLibrary.Controllers
         [HttpPost]
         public IActionResult DeleteObject(int id)
         {
-            categoryAccess = new CategoryAccess();
+            categoryService = new CategoryService();
             try
             {
-                categoryAccess.Delete(id);
+                categoryService.Delete(id);
                 return RedirectToAction("Index");
             }
             catch (Exception)

@@ -25,10 +25,10 @@ namespace MyLibrary.Controllers
         public IActionResult Index(string keyword)
         {
             bookService = new BookService();
-            List<Book> book = bookService.GetList();
-            book = book.FindAll(x => x.Title == keyword);
+            List<Book> books = bookService.GetList();
+            books = books.FindAll(x => x.Title == keyword);
 
-            return View(book);
+            return View(books);
         }
 
         [HttpGet]
