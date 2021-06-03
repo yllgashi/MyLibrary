@@ -135,9 +135,13 @@
     <p class="d-sm-inline col-2 float-right" >
         <a class="btn btn-secondary btn-md active" role="button" asp-area="" asp-controller="Book" asp-action="Create">Create New</a>
     </p>
-    
 </div>
 <hr style="box-shadow:2px 2px 10px #23153d">
+<form method="post">
+    <label for="keyword"></label>
+    <input type="text" name="keyword" id="keyword" placeholder="Search for Books..." />
+    <input type="submit" asp-action="Index" />
+</form>
 <div class="container">
     <div class="row mb-4">
         @foreach (var item in Model)
