@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyLibrary.DataService;
 using MyLibrary.Models;
+using MyLibrary.Models.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,6 +59,8 @@ namespace MyLibrary.Controllers
             offerService = new OfferService();
             try
             {
+                if (!ModelState.IsValid) throw new ObjectCreationException();
+                if (string.IsNullOrEmpty(offer.Description)) throw new ObjectCreationException();
                 offerService.Create(offer);
 
                 return RedirectToAction("Index");

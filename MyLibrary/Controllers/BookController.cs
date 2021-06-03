@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyLibrary.DataService;
 using MyLibrary.Models;
+using MyLibrary.Models.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +60,8 @@ namespace MyLibrary.Controllers
             bookService = new BookService();
             try
             {
+                if (!ModelState.IsValid) throw new ObjectCreationException();
+                if (string.IsNullOrEmpty(book.Title) || string.IsNullOrEmpty(book.Summary) || string.IsNullOrEmpty(book.ISBN)) throw new ObjectCreationException();
                 bookService.Create(book);
 
                 return RedirectToAction("Index");
