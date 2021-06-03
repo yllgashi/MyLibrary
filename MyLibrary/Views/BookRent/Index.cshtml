@@ -1,0 +1,89 @@
+﻿
+@model IEnumerable<MyLibrary.Models.BookRent>
+
+@{
+    ViewData["Title"] = "BookRent";
+}
+
+
+<style>
+    td {
+        text-decoration: none;
+    }
+</style>
+
+<div class="container">
+    <h1 class="d-md-inline-flex">Book Rents</h1>
+    <p class="d-sm-inline" style="margin-left:59%; ">
+        <a class="btn btn-secondary btn-md active" role="button" asp-area="" asp-controller="Author" asp-action="Create" style="margin-left: 70px;
+        margin-bottom: 10px;">Create New</a>
+    </p>
+</div>
+@*@using (Html.BeginForm("Index", "BookRent", FormMethod.Get))
+            {
+                @Html.TextBox("searching")<input type="submit" value="Search"/>
+            }*@
+
+
+<table class="table" id="table">
+    <thead>
+        <tr style="background-color:slategrey">
+            <th class="align-content-xl-start">
+            <th>
+                @Html.DisplayNameFor(model => model.BookRentId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClientId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RentDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @*@if (Model.Count() == 0)
+            {
+                <tr class="col-3"> 
+                    <td>
+                        No Match Found
+                    </td>
+                </tr>
+        }
+        else
+          {*@
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookRentId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RentDate)
+                </td>
+                <td>
+                    <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.BookRentId })
+                    </button>
+                    <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
+                        @Html.ActionLink("Details", "Details", new { id = item.BookRentId })
+                    </button>
+                    <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
+                        @Html.ActionLink("Delete", "Delete", new { id = item.BookRentId })
+                    </button>
+                </td>
+            </tr>
+        }
+        
+    </tbody>
+</table>
+

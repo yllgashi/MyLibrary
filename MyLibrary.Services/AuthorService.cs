@@ -1,5 +1,6 @@
 ﻿using MyLibrary.DataAccess;
 using MyLibrary.Models;
+using MyLibrary.Models.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,27 +18,33 @@ namespace MyLibrary.DataService
             authorAccess = new AuthorAccess();
         }
 
-        public List<Author> GetAll()
+        public List<Author> GetList()
         {
-            return authorAccess.GetAll();
+            return authorAccess.GetList();
         }
 
-        public Author Get(string id)
+        public Author Get(int id)
         {
+            // usp_Author_Get
+            // usp_Author_Books_Get
             return authorAccess.Get(id);
         }
 
         public bool Create(Author author)
         {
+            // validation
+            List<Author> authors = authorAccess.GetList();
+            int exists = authors.FindIndex(x => x.FirstName == author.FirstName && x.LastName == author.LastName);
+            if (exists != -1) throw new ObjectCreationException();
             return authorAccess.Create(author);
         }
 
-        public bool Update(string id, Author author)
+        public bool Update(int id, Author author)
         {
             return authorAccess.Update(id, author);
         }
 
-        public bool Delete(string id)
+        public bool Delete(int id)
         {
             return authorAccess.Delete(id);
         }

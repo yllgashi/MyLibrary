@@ -1,0 +1,61 @@
+﻿@model IEnumerable<MyLibrary.Models.Offer>
+
+@{
+    ViewData["Title"] = "Offers";
+}
+
+<div class="container">
+    <h1 class="d-md-inline-flex">Offers</h1>
+    <p class="d-sm-inline" style="margin-left:59%; ">
+        <a class="btn btn-secondary btn-md active" role="button" asp-area="" asp-controller="Offer" asp-action="Create" style="margin-left: 50px;
+        margin-bottom: 10px;">Create New</a>
+    </p>
+</div>
+<table class="table">
+    <thead>
+        <tr style="background-color:slategrey">
+            <th>
+                @Html.DisplayNameFor(model => model.OfferId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Days)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OfferId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Days)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.OfferId })
+                </button>
+                <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
+                    @Html.ActionLink("Details", "Details", new { id = item.OfferId })
+                </button>
+                <button class="btn btn-outline-dark" style="border-radius:3px 3px;">
+                    @Html.ActionLink("Delete", "Delete", new { id = item.OfferId })
+                </button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,174 @@
+﻿@model IEnumerable<MyLibrary.Models.Book>
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+<head>
+    <style>
+        .authors {
+            text-align: center;
+            transition: all 0.5s ease 0s;
+            margin-bottom: 30px;
+        }
+
+            .authors:hover {
+                box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            }
+
+            .authors .pic {
+                overflow: hidden;
+                position: relative;
+                width: 250px;
+                height: 250px;
+            }
+
+                .authors .pic:before,
+                .authors.pic:after {
+                    content: "";
+                    width: 200%;
+                    height: 80%;
+                    background: rgba(14, 55, 82, 0.8);
+                    position: absolute;
+                    opacity: 1;
+                    top: -100%;
+                    left: -4%;
+                    transform: rotate(45deg);
+                    transition: all 0.5s ease 0s;
+                }
+
+                .authors .pic:after {
+                    background: rgba(14, 55, 82, 0.8));
+                    top: auto;
+                    left: auto;
+                    bottom: -100%;
+                    right: -4%;
+                }
+
+            .authors:hover .pic:before {
+                top: 0;
+            }
+
+            .authors:hover .pic:after {
+                bottom: 0;
+            }
+
+
+            .authors .social {
+                width: 100%;
+                padding: 0;
+                margin: 0;
+                list-style: none;
+                position: absolute;
+                bottom: 45%;
+                left: 0;
+                opacity: 0;
+                z-index: 2;
+                transition: all 0.5s ease 0.3s;
+            }
+
+            .authors:hover .social {
+                opacity: 1;
+            }
+
+        button {
+            display: block;
+            width: 63px;
+            height: 50px;
+            line-height: 100px;
+            font-size: 20px;
+            color: #fff;
+          
+            position: relative;
+            transition: all 0.3s ease 0s;
+            padding-right: 0;
+            text-decoration: none;
+        }
+
+            button:after {
+                content: "";
+                width: 100%;
+                height: 100%;
+                font-weight: bolder;
+                background: rgba(14, 55, 82, 0.8);
+                border-radius: 0 20px 20px 20px;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: -1;
+                transition: all 0.3s ease 0s;
+            }
+
+            button a {
+                color: white;
+                text-decoration: none;
+            }
+
+            button:hover:after {
+                transform: rotate(180deg);
+                text-decoration-color: white;
+            }
+
+        .authors .author-content {
+            padding: 20px;
+        }
+
+        .authors .title {
+            font-size: 22px;
+            font-weight: 100;
+            letter-spacing: 2px;
+            color: #535b80;
+            text-transform: uppercase;
+            margin-bottom: 7px;
+        }
+
+        .authors.post {
+            display: block;
+            font-size: 17px;
+            font-weight: 600;
+            color: #333333;
+        }
+    </style>
+</head>
+<div class="row m-4">
+    <h2 class="col-9 ml-2">Find the book you're looking for.</h2>
+    <p class="d-sm-inline col-2 float-right" >
+        <a class="btn btn-secondary btn-md active" role="button" asp-area="" asp-controller="Book" asp-action="Create">Create New</a>
+    </p>
+    
+</div>
+<hr style="box-shadow:2px 2px 10px #23153d">
+<div class="container">
+    <div class="row mb-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3 col-sm-6">
+                <div class="authors">
+                    <img class="card-img-top" src="~/img/book.jpg" alt="Card image cap">
+
+                    <div class="author-content">
+                        <h5 class="card-title pl-1">@Html.DisplayFor(modelItem => item.Title)</h5>
+                        <p class="card-text pl-1"> @Html.DisplayFor(modelItem => item.Summary)</p>
+                        <p class="pl-1">@Html.DisplayNameFor(model => model.Publisher):@Html.DisplayFor(modelItem => item.Publisher)</p>
+                        <p class="pl-1">@Html.DisplayNameFor(model => model.ISBN):@Html.DisplayFor(modelItem => item.ISBN)</p>
+                        <p class="pl-1">@Html.DisplayNameFor(model => model.Pages):@Html.DisplayFor(modelItem => item.Pages)</p>
+                        <p class="pl-1"> @Html.DisplayNameFor(model => model.UnitPrice):@Html.DisplayFor(modelItem => item.UnitPrice)</p>
+                        <div class="mb-2">
+                            <button class="btn">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.BookId })
+                            </button>
+                            <button class="btn">
+                                @Html.ActionLink("Details", "Details", new { id = item.BookId })
+                            </button>
+                            <button class="btn">
+                                @Html.ActionLink("Delete", "Delete", new { id = item.BookId })
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+</div>
+   

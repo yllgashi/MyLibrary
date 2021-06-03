@@ -1,4 +1,6 @@
-﻿using MyLibrary.Models;
+﻿using MyLibrary.Access;
+using MyLibrary.Models;
+using MyLibrary.Models.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,32 +17,34 @@ namespace MyLibrary.DataService
             categoryAccess = new CategoryAccess();
         }
 
-        public List<Category> GetAll()
+        public List<Category> GetList()
         {
-            return categoryAccess.GetAll();
+            return categoryAccess.GetList();
         }
 
-        public Category Get (string id)
+        public Category Get (int id)
         {
             return categoryAccess.Get(id);
         }
 
         public bool Create(Category category)
         {
+            // validation
+            List<Category> categories = categoryAccess.GetList();
+            int exists = categories.FindIndex(x => x.Description == category.Description);
+            if (exists != -1) throw new ObjectCreationException();
             return categoryAccess.Create(category);
         }
 
-        public bool Update(string id,Category category)
+        public bool Update(int id,Category category)
         {
             return categoryAccess.Update(id, category);
         }
 
-        public bool Delete(string id)
+        public bool Delete(int id)
         {
             return categoryAccess.Delete(id);
         }
-
-
 
     }
 }
