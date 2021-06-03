@@ -20,8 +20,6 @@ namespace MyLibrary.Models
         [StringLength(70, MinimumLength = 2, ErrorMessage = "Incorrect last name!")]
         [RegularExpression("^[A-Z][a-zA-Z]*$", ErrorMessage = "Incorrect last name!")]
         public string LastName { get; set; }
-
-        [Required]
         public DateTime BirthDate { get; set; }
         public List<Book> Books { get; set; }
     }
