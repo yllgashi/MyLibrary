@@ -155,9 +155,9 @@
     @*<input type="text" id="inputSearch">
         <input type="button" value="Start" onclick="location.href='@Url.Action("Create", "User/")'" />*@
     <form method="post">
-        <label for="keyword">Search</label>
-        <input type="text" name="keyword" id="keyword" placeholder="Keyword" />
-        <input type="submit" asp-action="Index" asp-controller="Details" />
+        <label for="keyword"></label>
+        <input type="text" name="keyword" id="keyword" placeholder="Search for Authors.." />
+        <input type="submit" asp-action="Index" />
     </form>
     <div class="row">
         @foreach (var item in Model)
