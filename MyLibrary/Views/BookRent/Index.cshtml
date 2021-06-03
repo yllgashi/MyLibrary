@@ -1,14 +1,17 @@
-﻿@model IEnumerable<MyLibrary.Models.BookRent>
+﻿
+@model IEnumerable<MyLibrary.Models.BookRent>
 
 @{
     ViewData["Title"] = "BookRent";
 }
+
 
 <style>
     td {
         text-decoration: none;
     }
 </style>
+
 <div class="container">
     <h1 class="d-md-inline-flex">Book Rents</h1>
     <p class="d-sm-inline" style="margin-left:59%; ">
@@ -16,8 +19,13 @@
         margin-bottom: 10px;">Create New</a>
     </p>
 </div>
+@*@using (Html.BeginForm("Index", "BookRent", FormMethod.Get))
+            {
+                @Html.TextBox("searching")<input type="submit" value="Search"/>
+            }*@
 
-<table class="table">
+
+<table class="table" id="table">
     <thead>
         <tr style="background-color:slategrey">
             <th class="align-content-xl-start">
@@ -37,6 +45,16 @@
         </tr>
     </thead>
     <tbody>
+        @*@if (Model.Count() == 0)
+            {
+                <tr class="col-3"> 
+                    <td>
+                        No Match Found
+                    </td>
+                </tr>
+        }
+        else
+          {*@
         @foreach (var item in Model)
         {
             <tr>
@@ -65,5 +83,7 @@
                 </td>
             </tr>
         }
+        
     </tbody>
 </table>
+
