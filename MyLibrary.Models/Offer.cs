@@ -10,7 +10,7 @@ namespace MyLibrary.Models
     {
         public int OfferId { get; set; }
 
-        [RegularExpression(@"^\d$")]
+        [RegularExpression(@"\d$")]
         [Range(1, 99999, ErrorMessage = "Incorrect value!")]
         public int Days{ get; set; }
 
@@ -20,7 +20,6 @@ namespace MyLibrary.Models
 
         [Required(ErrorMessage = "Description is required")]
         [StringLength(250, MinimumLength = 3, ErrorMessage = "Incorrect description!")]
-        [RegularExpression("^[A-Z][a-zA-Z]*$", ErrorMessage = "Incorrect description!")]
         public string Description { get; set; }
     }
 }
