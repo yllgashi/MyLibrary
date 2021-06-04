@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyLibrary.DataService;
 using MyLibrary.Models;
+using MyLibrary.Models.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +60,7 @@ namespace MyLibrary.Controllers
             bookRentService = new BookRentService();
             try
             {
+                if (!ModelState.IsValid) throw new ObjectCreationException();
                 bookRentService.Create(bookRent);
 
                 return RedirectToAction("Index");

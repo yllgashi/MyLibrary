@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyLibrary.DataService;
 using MyLibrary.Models;
+using MyLibrary.Models.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +60,8 @@ namespace MyLibrary.Controllers
             clientService = new ClientService();
             try
             {
+                if (!ModelState.IsValid) throw new ObjectCreationException();
+                if (string.IsNullOrEmpty(client.FirstName) || string.IsNullOrEmpty(client.LastName)) throw new ObjectCreationException();
                 clientService.Create(client);
 
                 return RedirectToAction("Index");
