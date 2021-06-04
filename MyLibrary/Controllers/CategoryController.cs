@@ -5,6 +5,7 @@ using MyLibrary.Models.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MyLibrary.Controllers
@@ -27,7 +28,7 @@ namespace MyLibrary.Controllers
         {
             categoryService = new CategoryService();
             List<Category> categories = categoryService.GetList();
-            categories = categories.FindAll(x => x.Description == keyword);
+            categories = SearchWithRegex(keyword, categories);
 
             return View(categories);
         }
@@ -133,5 +134,19 @@ namespace MyLibrary.Controllers
                 return View("Error");
             }
         }
+
+        #region Helper methods
+        private List<Category> SearchWithRegex(string keyword, List<Category> categories)
+        {
+            List<Category> temp = new List<Category>();
+            Regex rgx = new Regex(keyword);
+            categories.ForEach(x =>
+            {
+                if (rgx.IsMatch(x.Description)) temp.Add(x);
+            });
+
+            return temp;
+        }
+        #endregion
     }
 }

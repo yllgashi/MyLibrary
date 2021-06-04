@@ -5,6 +5,7 @@ using MyLibrary.Models.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MyLibrary.Controllers
@@ -27,7 +28,7 @@ namespace MyLibrary.Controllers
         {
             bookService = new BookService();
             List<Book> books = bookService.GetList();
-            books = books.FindAll(x => x.Title == keyword);
+            books = SearchWithRegex(keyword, books);
 
             return View(books);
         }
@@ -133,5 +134,19 @@ namespace MyLibrary.Controllers
                 return View("Error");
             }
         }
+
+        #region Helper methods
+        private List<Book> SearchWithRegex(string keyword, List<Book> books)
+        {
+            List<Book> temp = new List<Book>();
+            Regex rgx = new Regex(keyword);
+            books.ForEach(x =>
+            {
+                if (rgx.IsMatch(x.Title)) temp.Add(x);
+            });
+
+            return temp;
+        }
+        #endregion
     }
 }
