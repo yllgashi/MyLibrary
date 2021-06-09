@@ -27,14 +27,37 @@ namespace MyLibrary.Access
                     {
                         bookRents.Add(GetBookRentFromDb(reader));
                     }
-
-                    return bookRents;
                 }
                 catch (Exception ex)
                 {
                     throw ex;
                 }
             }
+
+            foreach (var item in bookRents)
+            {
+                using (DatabaseConn.conn = new SqlConnection(DatabaseConn.conString))
+                {
+                    DatabaseConn.cmd = new SqlCommand("usp_Book_Get", DatabaseConn.conn);
+                    DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
+                    DatabaseConn.cmd.Parameters.AddWithValue("@id", item.BookId);
+                    try
+                    {
+                        DatabaseConn.conn.Open();
+                        var reader = DatabaseConn.cmd.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            item.Book = GetBookFromDb(reader);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+            }
+
+            return bookRents;
         }
 
         public BookRent Get(int id)

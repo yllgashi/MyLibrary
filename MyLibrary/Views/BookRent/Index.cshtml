@@ -32,12 +32,12 @@
 <table class="table" id="table">
     <thead>
         <tr style="background-color:slategrey">
-            <th class="align-content-xl-start">
+            @*<th class="align-content-xl-start">*@
             <th>
                 @Html.DisplayNameFor(model => model.BookRentId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookId)
+               Book Title
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ClientId)
@@ -56,7 +56,7 @@
                     @Html.DisplayFor(modelItem => item.BookRentId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.BookId)
+                    @Html.DisplayFor(modelItem => item.Book.Title)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ClientId)
