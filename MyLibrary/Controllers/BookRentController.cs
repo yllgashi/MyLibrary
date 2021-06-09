@@ -24,11 +24,11 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(int searching)
+        public IActionResult Index(string keyword)
         {
             bookRentService = new BookRentService();
             List<BookRent> bookRents = bookRentService.GetList();
-            bookRents = SearchWithRegex(searching, bookRents);
+            bookRents = SearchWithRegex(keyword, bookRents);
 
             return View(bookRents);
         }
@@ -135,13 +135,13 @@ namespace MyLibrary.Controllers
         }
 
         #region Helper methods
-        private List<BookRent> SearchWithRegex(int searching, List<BookRent> bookRents)
+        private List<BookRent> SearchWithRegex(string searching, List<BookRent> bookRents)
         {
             List<BookRent> temp = new List<BookRent>();
-            Regex rgx = new Regex(searching.ToString());
+            Regex rgx = new Regex(searching);
             bookRents.ForEach(x =>
             {
-                if (rgx.IsMatch(x.BookRentId.ToString())) temp.Add(x);
+                if (rgx.IsMatch(x.Book.Title)) temp.Add(x);
             });
 
             return temp;
