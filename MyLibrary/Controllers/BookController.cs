@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyLibrary.DataService;
 using MyLibrary.Models;
+using MyLibrary.Models.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MyLibrary.Controllers
@@ -25,10 +27,10 @@ namespace MyLibrary.Controllers
         public IActionResult Index(string keyword)
         {
             bookService = new BookService();
-            List<Book> book = bookService.GetList();
-            book = book.FindAll(x => x.Title == keyword);
+            List<Book> books = bookService.GetList();
+            books = SearchWithRegex(keyword, books);
 
-            return View(book);
+            return View(books);
         }
 
         [HttpGet]
@@ -59,6 +61,8 @@ namespace MyLibrary.Controllers
             bookService = new BookService();
             try
             {
+                if (!ModelState.IsValid) throw new ObjectCreationException();
+                if (string.IsNullOrEmpty(book.Title) || string.IsNullOrEmpty(book.Summary) || string.IsNullOrEmpty(book.ISBN)) throw new ObjectCreationException();
                 bookService.Create(book);
 
                 return RedirectToAction("Index");
@@ -130,5 +134,19 @@ namespace MyLibrary.Controllers
                 return View("Error");
             }
         }
+
+        #region Helper methods
+        private List<Book> SearchWithRegex(string keyword, List<Book> books)
+        {
+            List<Book> temp = new List<Book>();
+            Regex rgx = new Regex(keyword);
+            books.ForEach(x =>
+            {
+                if (rgx.IsMatch(x.Title)) temp.Add(x);
+            });
+
+            return temp;
+        }
+        #endregion
     }
 }

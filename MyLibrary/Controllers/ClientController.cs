@@ -1,22 +1,34 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyLibrary.Access;
+using MyLibrary.DataService;
 using MyLibrary.Models;
+using MyLibrary.Models.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MyLibrary.Controllers
 {
     public class ClientController : Controller
     {
-        ClientAccess clientAccess;
+        ClientService clientService;
 
         [HttpGet]
         public IActionResult Index()
         {
-            clientAccess = new ClientAccess();
-            List<Client> clients = clientAccess.GetList();
+            clientService = new ClientService();
+            List<Client> clients = clientService.GetList();
+
+            return View(clients);
+        }
+
+        [HttpPost]
+        public IActionResult Index(string keyword)
+        {
+            clientService = new ClientService();
+            List<Client> clients = clientService.GetList();
+            clients = SearchWithRegex(keyword, clients);
 
             return View(clients);
         }
@@ -24,10 +36,10 @@ namespace MyLibrary.Controllers
         [HttpGet]
         public IActionResult Details(int id)
         {
-            clientAccess = new ClientAccess();
+            clientService = new ClientService();
             try
             {
-                Client client = clientAccess.Get(id);
+                Client client = clientService.Get(id);
 
                 return View(client);
             }
@@ -46,10 +58,12 @@ namespace MyLibrary.Controllers
         [HttpPost]
         public IActionResult Create(Client client)
         {
-            clientAccess = new ClientAccess();
+            clientService = new ClientService();
             try
             {
-                clientAccess.Create(client);
+                if (!ModelState.IsValid) throw new ObjectCreationException();
+                if (string.IsNullOrEmpty(client.FirstName) || string.IsNullOrEmpty(client.LastName)) throw new ObjectCreationException();
+                clientService.Create(client);
 
                 return RedirectToAction("Index");
             }
@@ -62,11 +76,11 @@ namespace MyLibrary.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            clientAccess = new ClientAccess();
+            clientService = new ClientService();
             try
             {
                 if (id == 0) throw new Exception();
-                Client client = clientAccess.Get(id);
+                Client client = clientService.Get(id);
                 return View(client);
             }
             catch (Exception)
@@ -78,10 +92,10 @@ namespace MyLibrary.Controllers
         [HttpPost]
         public IActionResult Edit(Client client)
         {
-            clientAccess = new ClientAccess();
+            clientService = new ClientService();
             try
             {
-                clientAccess.Update(client.ClientId, client);
+                clientService.Update(client.ClientId, client);
                 return RedirectToAction("Index");
             }
             catch (Exception)
@@ -93,11 +107,11 @@ namespace MyLibrary.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            clientAccess = new ClientAccess();
+            clientService = new ClientService();
             try
             {
                 if (id == 0) throw new Exception();
-                Client client = clientAccess.Get(id);
+                Client client = clientService.Get(id);
                 return View(client);
             }
             catch (Exception)
@@ -109,10 +123,10 @@ namespace MyLibrary.Controllers
         [HttpPost]
         public IActionResult DeleteObject(int id)
         {
-            clientAccess = new ClientAccess();
+            clientService = new ClientService();
             try
             {
-                clientAccess.Delete(id);
+                clientService.Delete(id);
                 return RedirectToAction("Index");
             }
             catch (Exception)
@@ -120,5 +134,19 @@ namespace MyLibrary.Controllers
                 return View("Error");
             }
         }
+        #region Helper methods
+        private List<Client> SearchWithRegex(string keyword, List<Client> clients)
+        {
+            List<Client> temp = new List<Client>();
+            Regex rgx = new Regex(keyword);
+            clients.ForEach(x =>
+            {
+                if (rgx.IsMatch(x.FirstName + "" + x.LastName)) temp.Add(x);
+            });
+
+            return temp;
+        }
+        #endregion
+
     }
 }

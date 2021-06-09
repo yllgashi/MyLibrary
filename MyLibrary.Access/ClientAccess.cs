@@ -17,7 +17,6 @@ namespace MyLibrary.Access
             {
                 DatabaseConn.cmd = new SqlCommand("usp_Client_GetList", DatabaseConn.conn);
                 DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
-                DatabaseConn.da = new SqlDataAdapter(DatabaseConn.cmd);
 
                 try
                 {
@@ -46,7 +45,6 @@ namespace MyLibrary.Access
             {
                 DatabaseConn.cmd = new SqlCommand("usp_Client_Get", DatabaseConn.conn);
                 DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
-                DatabaseConn.da = new SqlDataAdapter(DatabaseConn.cmd);
                 DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
 
                 try
@@ -71,7 +69,6 @@ namespace MyLibrary.Access
             {
                 DatabaseConn.cmd = new SqlCommand("usp_Client_Get_Offers", DatabaseConn.conn);
                 DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
-                DatabaseConn.da = new SqlDataAdapter(DatabaseConn.cmd);
                 DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
 
                 client.ClientOffers = new List<ClientOffer>();
@@ -95,7 +92,6 @@ namespace MyLibrary.Access
             {
                 DatabaseConn.cmd = new SqlCommand("usp_BookRent_Get_By_Client", DatabaseConn.conn);
                 DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
-                DatabaseConn.da = new SqlDataAdapter(DatabaseConn.cmd);
                 DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
 
                 client.BookRents = new List<BookRent>();

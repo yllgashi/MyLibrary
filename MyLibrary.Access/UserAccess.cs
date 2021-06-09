@@ -17,7 +17,6 @@ namespace MyLibrary.Access
             {
                 DatabaseConn.cmd = new SqlCommand("usp_User_GetList", DatabaseConn.conn);
                 DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
-                DatabaseConn.da = new SqlDataAdapter(DatabaseConn.cmd);
 
                 try
                 {
@@ -46,7 +45,6 @@ namespace MyLibrary.Access
             {
                 DatabaseConn.cmd = new SqlCommand("usp_User_Get", DatabaseConn.conn);
                 DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
-                DatabaseConn.da = new SqlDataAdapter(DatabaseConn.cmd);
                 DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
 
                 try

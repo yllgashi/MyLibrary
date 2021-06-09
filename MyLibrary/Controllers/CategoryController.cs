@@ -1,22 +1,34 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyLibrary.Access;
+using MyLibrary.DataService;
 using MyLibrary.Models;
+using MyLibrary.Models.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MyLibrary.Controllers
 {
     public class CategoryController : Controller
     {
-        CategoryAccess categoryAccess;
+        CategoryService categoryService;
 
         [HttpGet]
         public IActionResult Index()
         {
-            categoryAccess = new CategoryAccess();
-            List<Category> categories = categoryAccess.GetList();
+            categoryService = new CategoryService();
+            List<Category> categories = categoryService.GetList();
+
+            return View(categories);
+        }
+
+        [HttpPost]
+        public IActionResult Index(string keyword)
+        {
+            categoryService = new CategoryService();
+            List<Category> categories = categoryService.GetList();
+            categories = SearchWithRegex(keyword, categories);
 
             return View(categories);
         }
@@ -24,10 +36,10 @@ namespace MyLibrary.Controllers
         [HttpGet]
         public IActionResult Details(int id)
         {
-            categoryAccess = new CategoryAccess();
+            categoryService = new CategoryService();
             try
             {
-                Category category = categoryAccess.Get(id);
+                Category category = categoryService.Get(id);
 
                 return View(category);
             }
@@ -46,10 +58,12 @@ namespace MyLibrary.Controllers
         [HttpPost]
         public IActionResult Create(Category category)
         {
-            categoryAccess = new CategoryAccess();
+            categoryService = new CategoryService();
             try
             {
-                categoryAccess.Create(category);
+                if (!ModelState.IsValid) throw new ObjectCreationException();
+                if (string.IsNullOrEmpty(category.Description)) throw new ObjectCreationException();
+                categoryService.Create(category);
 
                 return RedirectToAction("Index");
             }
@@ -62,11 +76,11 @@ namespace MyLibrary.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            categoryAccess = new CategoryAccess();
+            categoryService = new CategoryService();
             try
             {
                 if (id == 0) throw new Exception();
-                Category category = categoryAccess.Get(id);
+                Category category = categoryService.Get(id);
                 return View(category);
             }
             catch (Exception)
@@ -78,10 +92,10 @@ namespace MyLibrary.Controllers
         [HttpPost]
         public IActionResult Edit(Category category)
         {
-            categoryAccess = new CategoryAccess();
+            categoryService = new CategoryService();
             try
             {
-                categoryAccess.Update(category.CategoryId, category);
+                categoryService.Update(category.CategoryId, category);
                 return RedirectToAction("Index");
             }
             catch (Exception)
@@ -93,11 +107,11 @@ namespace MyLibrary.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            categoryAccess = new CategoryAccess();
+            categoryService = new CategoryService();
             try
             {
                 if (id == 0) throw new Exception();
-                Category category = categoryAccess.Get(id);
+                Category category = categoryService.Get(id);
                 return View(category);
             }
             catch (Exception)
@@ -109,10 +123,10 @@ namespace MyLibrary.Controllers
         [HttpPost]
         public IActionResult DeleteObject(int id)
         {
-            categoryAccess = new CategoryAccess();
+            categoryService = new CategoryService();
             try
             {
-                categoryAccess.Delete(id);
+                categoryService.Delete(id);
                 return RedirectToAction("Index");
             }
             catch (Exception)
@@ -120,5 +134,19 @@ namespace MyLibrary.Controllers
                 return View("Error");
             }
         }
+
+        #region Helper methods
+        private List<Category> SearchWithRegex(string keyword, List<Category> categories)
+        {
+            List<Category> temp = new List<Category>();
+            Regex rgx = new Regex(keyword);
+            categories.ForEach(x =>
+            {
+                if (rgx.IsMatch(x.Description)) temp.Add(x);
+            });
+
+            return temp;
+        }
+        #endregion
     }
 }

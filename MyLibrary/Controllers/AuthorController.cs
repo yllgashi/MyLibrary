@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyLibrary.DataService;
 using MyLibrary.Models;
+using MyLibrary.Models.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MyLibrary.Controllers
@@ -26,10 +28,14 @@ namespace MyLibrary.Controllers
         {
             authorService = new AuthorService();
             List<Author> authors = authorService.GetList();
+
+
             authors = authors.FindAll(x => x.FirstName == keyword || (DateTime.Now.Year - x.BirthDate.Year).ToString() == keyword);
+            authors = SearchWithRegex(keyword, authors);
 
             return View(authors);
         }
+
         [HttpGet]
         public IActionResult Details(int id)
         {
@@ -58,6 +64,8 @@ namespace MyLibrary.Controllers
             authorService = new AuthorService();
             try
             {
+                if (!ModelState.IsValid) throw new ObjectCreationException();
+                if (string.IsNullOrEmpty(author.FirstName) || string.IsNullOrEmpty(author.LastName)) throw new ObjectCreationException();
                 authorService.Create(author);
 
                 return RedirectToAction("Index");
@@ -129,5 +137,19 @@ namespace MyLibrary.Controllers
                 return View("Error");
             }
         }
+
+        #region Helper methods
+        private List<Author> SearchWithRegex(string keyword, List<Author> authors)
+        {
+            List<Author> temp = new List<Author>();
+            Regex rgx = new Regex(keyword);
+            authors.ForEach(x =>
+            {
+                if (rgx.IsMatch(x.FirstName + " " + x.LastName)) temp.Add(x);
+            });
+
+            return temp;
+        }
+        #endregion
     }
 }

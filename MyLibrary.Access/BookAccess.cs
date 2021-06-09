@@ -17,7 +17,6 @@ namespace MyLibrary.Access
             {
                 DatabaseConn.cmd = new SqlCommand("usp_Book_GetList", DatabaseConn.conn);
                 DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
-                DatabaseConn.da = new SqlDataAdapter(DatabaseConn.cmd);
 
                 try
                 {
@@ -50,7 +49,6 @@ namespace MyLibrary.Access
             {
                 DatabaseConn.cmd = new SqlCommand("usp_Book_Get", DatabaseConn.conn);
                 DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
-                DatabaseConn.da = new SqlDataAdapter(DatabaseConn.cmd);
                 DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
 
                 try
@@ -74,7 +72,6 @@ namespace MyLibrary.Access
             {
                 DatabaseConn.cmd = new SqlCommand("usp_Book_Get_Category", DatabaseConn.conn);
                 DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
-                DatabaseConn.da = new SqlDataAdapter(DatabaseConn.cmd);
                 DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
 
                 book.Categories = new List<Category>();
@@ -97,7 +94,6 @@ namespace MyLibrary.Access
             {
                 DatabaseConn.cmd = new SqlCommand("usp_Book_Get_Authors", DatabaseConn.conn);
                 DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
-                DatabaseConn.da = new SqlDataAdapter(DatabaseConn.cmd);
                 DatabaseConn.cmd.Parameters.AddWithValue("@id", id);
 
                 book.Authors = new List<Author>();

@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyLibrary.DataService;
 using MyLibrary.Models;
+using MyLibrary.Models.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MyLibrary.Controllers
@@ -20,14 +22,17 @@ namespace MyLibrary.Controllers
 
             return View(bookRents);
         }
+
         [HttpPost]
         public IActionResult Index(int searching)
         {
             bookRentService = new BookRentService();
             List<BookRent> bookRents = bookRentService.GetList();
+            bookRents = SearchWithRegex(searching, bookRents);
 
-            return View(bookRents.Where(x => x.BookRentId == searching));
+            return View(bookRents);
         }
+
         [HttpGet]
         public IActionResult Details(int id)
         {
@@ -56,6 +61,7 @@ namespace MyLibrary.Controllers
             bookRentService = new BookRentService();
             try
             {
+                if (!ModelState.IsValid) throw new ObjectCreationException();
                 bookRentService.Create(bookRent);
 
                 return RedirectToAction("Index");
@@ -127,5 +133,19 @@ namespace MyLibrary.Controllers
                 return View("Error");
             }
         }
+
+        #region Helper methods
+        private List<BookRent> SearchWithRegex(int searching, List<BookRent> bookRents)
+        {
+            List<BookRent> temp = new List<BookRent>();
+            Regex rgx = new Regex(searching.ToString());
+            bookRents.ForEach(x =>
+            {
+                if (rgx.IsMatch(x.BookRentId.ToString())) temp.Add(x);
+            });
+
+            return temp;
+        }
+        #endregion
     }
 }
