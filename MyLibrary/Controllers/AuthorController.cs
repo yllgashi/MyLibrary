@@ -28,6 +28,9 @@ namespace MyLibrary.Controllers
         {
             authorService = new AuthorService();
             List<Author> authors = authorService.GetList();
+
+
+            authors = authors.FindAll(x => x.FirstName == keyword || (DateTime.Now.Year - x.BirthDate.Year).ToString() == keyword);
             authors = SearchWithRegex(keyword, authors);
 
             return View(authors);
