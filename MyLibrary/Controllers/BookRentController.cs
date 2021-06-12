@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyLibrary.DataService;
 using MyLibrary.Models;
 using MyLibrary.Models.Exceptions;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace MyLibrary.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class BookRentController : Controller
     {
         BookRentService bookRentService;

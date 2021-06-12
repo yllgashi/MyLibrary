@@ -41,6 +41,7 @@ namespace MyLibrary.Controllers
 
                 if (user == null) throw new AuthorizationException();
 
+
                 var token = TokenService.CreateToken(user);
                 user.Password = "";
                 //return new
@@ -55,22 +56,6 @@ namespace MyLibrary.Controllers
                 return View("Error");
             }
         }
-
-        [HttpGet]
-        [Route("Administrator")]
-        [Authorize(Roles = "Administrator")]
-        public string Administrator() => "OverView";
-
-        [HttpGet]
-        [Route("Client")]
-        [Authorize(Roles = "Client")]
-        public string Client() => "OverView";
-
-        public IActionResult Overview(User user)
-        {
-            return View(user);
-        }
-
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
