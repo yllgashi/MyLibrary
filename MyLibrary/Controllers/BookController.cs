@@ -11,12 +11,15 @@ using System.Threading.Tasks;
 
 namespace MyLibrary.Controllers
 {
-    [Authorize(Roles = "Administrator, Client")]
+    //[Authorize(Roles = "Administrator, Client")]
+    [Route("[controller]/")]
     public class BookController : Controller
     {
         BookService bookService;
 
         [HttpGet]
+        [Route("/Book")]
+        [Route("~/Book/Index")]
         public IActionResult Index()
         {
             bookService = new BookService();
@@ -26,6 +29,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("Index")]
         public IActionResult Index(string keyword)
         {
             bookService = new BookService();
@@ -36,6 +40,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Details")]
         public IActionResult Details(int id)
         {
             bookService = new BookService();
@@ -52,12 +57,14 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Create")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("Create")]
         public IActionResult Create(Book book)
         {
             bookService = new BookService();
@@ -76,6 +83,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Edit")]
         public IActionResult Edit(int id)
         {
             bookService = new BookService();
@@ -92,6 +100,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("Edit")]
         public IActionResult Edit(Book book)
         {
             bookService = new BookService();
@@ -107,6 +116,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Delete")]
         public IActionResult Delete(int id)
         {
             bookService = new BookService();
@@ -123,6 +133,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("DeleteObject")]
         public IActionResult DeleteObject(int id)
         {
             bookService = new BookService();

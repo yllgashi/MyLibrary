@@ -11,12 +11,16 @@ using System.Threading.Tasks;
 
 namespace MyLibrary.Controllers
 {
-    [Authorize(Roles = "Administrator, Client")]
+    [Route("[controller]/")]
+    //[Authorize(Roles = "Administrator, Client")]
     public class AuthorController : Controller
     {
         AuthorService authorService;
 
+
         [HttpGet]
+        [Route("/Author")]
+        [Route("~/Author/Index")]
         public IActionResult Index()
         {
             authorService = new AuthorService();
@@ -26,6 +30,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("Index")]
         public IActionResult Index(string keyword)
         {
             authorService = new AuthorService();
@@ -39,6 +44,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Details")]
         public IActionResult Details(int id)
         {
             authorService = new AuthorService();
@@ -55,12 +61,14 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Create")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("Create")]
         public IActionResult Create(Author author)
         {
             authorService = new AuthorService();
@@ -79,6 +87,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Edit")]
         public IActionResult Edit(int id)
         {
             authorService = new AuthorService();
@@ -95,6 +104,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("Edit")]
         public IActionResult Edit(Author author)
         {
             authorService = new AuthorService();
@@ -110,6 +120,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Delete")]
         public IActionResult Delete(int id)
         {
             authorService = new AuthorService();
@@ -126,6 +137,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("DeleteObject")]
         public IActionResult DeleteObject(int id)
         {
             authorService = new AuthorService();

@@ -11,12 +11,15 @@ using System.Threading.Tasks;
 
 namespace MyLibrary.Controllers
 {
-    [Authorize(Roles = "Administrator, Client")]
+    [Route("[controller]/")]
+    //[Authorize(Roles = "Administrator, Client")]
     public class CategoryController : Controller
     {
         CategoryService categoryService;
 
         [HttpGet]
+        [Route("/Category")]
+        [Route("~/Category/Index")]
         public IActionResult Index()
         {
             categoryService = new CategoryService();
@@ -26,6 +29,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("Index")]
         public IActionResult Index(string keyword)
         {
             categoryService = new CategoryService();
@@ -36,6 +40,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Details")]
         public IActionResult Details(int id)
         {
             categoryService = new CategoryService();
@@ -52,12 +57,14 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Create")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("Create")]
         public IActionResult Create(Category category)
         {
             categoryService = new CategoryService();
@@ -76,6 +83,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Edit")]
         public IActionResult Edit(int id)
         {
             categoryService = new CategoryService();
@@ -92,6 +100,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("Edit")]
         public IActionResult Edit(Category category)
         {
             categoryService = new CategoryService();
@@ -107,6 +116,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Delete")]
         public IActionResult Delete(int id)
         {
             categoryService = new CategoryService();
@@ -123,6 +133,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("DeleteObject")]
         public IActionResult DeleteObject(int id)
         {
             categoryService = new CategoryService();

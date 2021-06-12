@@ -11,12 +11,16 @@ using System.Threading.Tasks;
 
 namespace MyLibrary.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    [Route("[controller]/")]
+    //[Authorize(Roles = "Administrator")]
     public class BookRentController : Controller
     {
         BookRentService bookRentService;
 
         [HttpGet]
+        [HttpGet]
+        [Route("/BookRent")]
+        [Route("~/BookRent/Index")]
         public IActionResult Index()
         {
             bookRentService = new BookRentService();
@@ -26,6 +30,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("Index")]
         public IActionResult Index(string keyword)
         {
             bookRentService = new BookRentService();
@@ -36,6 +41,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Details")]
         public IActionResult Details(int id)
         {
             bookRentService = new BookRentService();
@@ -52,12 +58,14 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Create")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("Create")]
         public IActionResult Create(BookRent bookRent)
         {
             bookRentService = new BookRentService();
@@ -75,6 +83,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Edit")]
         public IActionResult Edit(int id)
         {
             bookRentService = new BookRentService();
@@ -91,6 +100,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("Edit")]
         public IActionResult Edit(BookRent bookRent)
         {
             bookRentService = new BookRentService();
@@ -106,6 +116,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Delete")]
         public IActionResult Delete(int id)
         {
             bookRentService = new BookRentService();
@@ -122,6 +133,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("DeleteObject")]
         public IActionResult DeleteObject(int id)
         {
             bookRentService = new BookRentService();

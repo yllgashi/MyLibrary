@@ -11,12 +11,14 @@ using System.Threading.Tasks;
 
 namespace MyLibrary.Controllers
 {
-    [Authorize(Roles = "Administrator, Client")]
+    //[Authorize(Roles = "Administrator, Client")]
     public class OfferController : Controller
     {
         OfferService offerService;
 
         [HttpGet]
+        [Route("/Offer")]
+        [Route("~/Offer/Index")]
         public IActionResult Index()
         {
             offerService = new OfferService();
@@ -26,6 +28,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("Index")]
         public IActionResult Index(string keyword)
         {
             offerService = new OfferService();
@@ -35,6 +38,8 @@ namespace MyLibrary.Controllers
             return View(offers);
         }
 
+        [HttpGet]
+        [Route("Details")]
         public IActionResult Details(int id)
         {
             offerService = new OfferService();
@@ -51,12 +56,14 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Create")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("Create")]
         public IActionResult Create(Offer offer)
         {
             offerService = new OfferService();
@@ -75,6 +82,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Edit")]
         public IActionResult Edit(int id)
         {
             offerService = new OfferService();
@@ -91,6 +99,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("Edit")]
         public IActionResult Edit(Offer offer)
         {
             offerService = new OfferService();
@@ -106,6 +115,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Delete")]
         public IActionResult Delete(int id)
         {
             offerService = new OfferService();
@@ -122,6 +132,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("DeleteObject")]
         public IActionResult DeleteObject(int id)
         {
             offerService = new OfferService();

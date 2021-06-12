@@ -13,8 +13,10 @@ using MyLibrary.Models.Exceptions;
 
 namespace MyLibrary.Controllers
 {
+    [Route("[controller]/")]
     public class HomeController : Controller
     {
+        User user;
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -22,6 +24,11 @@ namespace MyLibrary.Controllers
             _logger = logger;
         }
 
+
+        [HttpGet]
+        [Route("~/")]
+        [Route("/Home")]
+        [Route("~/Home/Index")]
         public IActionResult Index(User user)
         {
             // login/register form
@@ -30,14 +37,14 @@ namespace MyLibrary.Controllers
 
         [HttpPost]
         [Route("login")]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public async Task<ActionResult<dynamic>> Authenticate(string email, string password)
         {
             try
             {
                 if (email == null || password == null) throw new AuthorizationException();
 
-                var user = UserRepository.Get(email, password);
+                user = UserRepository.Get(email, password);
 
                 if (user == null) throw new AuthorizationException();
 
@@ -49,7 +56,7 @@ namespace MyLibrary.Controllers
                 //    user = user,
                 //    token = token
                 //};
-                return RedirectToAction("Overview", user);
+                return RedirectToAction("Overview");
             }
             catch (Exception)
             {
@@ -57,6 +64,13 @@ namespace MyLibrary.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("Overview")]
+        //[Authorize(Roles = "Administrator, Client")]
+        public IActionResult Overview()
+        {
+            return View(user);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
