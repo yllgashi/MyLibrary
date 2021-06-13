@@ -21,69 +21,76 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 </head>
 <body>
-    <header>
-        
-        <nav class="navbar nav-tabs navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="margin-right:130px;">MyLibrary</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-md-inline-flex justify-content-end">
-                    <ul class="navbar-nav flex-lg-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="BookRent" asp-action="Index">Book Rents</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Author" asp-action="Index">Author</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Book" asp-action="Index">Book</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link text-light dropdown-toggle" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item bg-light" href="#">Action</a>
-                                <a class="dropdown-item bg-light" href="#">Romance</a>
-                                <a class="dropdown-item bg-light" href="#">Drama</a>
-                                <a class="dropdown-item bg-light" href="#">Science</a>
-                                <a class="dropdown-item bg-light" href="#">Classic Literature</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item bg-light" href="#">Special Editions</a>
-                            </div>
-                        </li>
+    @if (!ViewContext.RouteData.Values["action"].Equals("Login"))
+    {
+        <header>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Offer" asp-action="Index">Offer</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Client" asp-action="Index">Client</a>
-                        </li>
-                     
-                        <li class="nav-item">
-            <button class="btn btn-light btn-md active" role="button" onclick="logout()">Log out</button>
-        </li>
-                    </ul>
+            <nav class="navbar nav-tabs navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="margin-right:130px;">MyLibrary</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-md-inline-flex justify-content-end">
+                        <ul class="navbar-nav flex-lg-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="BookRent" asp-action="Index">Book Rents</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Author" asp-action="Index">Author</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Book" asp-action="Index">Book</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-light dropdown-toggle" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item bg-light" href="#">Action</a>
+                                    <a class="dropdown-item bg-light" href="#">Romance</a>
+                                    <a class="dropdown-item bg-light" href="#">Drama</a>
+                                    <a class="dropdown-item bg-light" href="#">Science</a>
+                                    <a class="dropdown-item bg-light" href="#">Classic Literature</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item bg-light" href="#">Special Editions</a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Offer" asp-action="Index">Offer</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Client" asp-action="Index">Client</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <button class="btn btn-light btn-md active" role="button" onclick="logout()">Log out</button>button
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-           
-        </nav>
-    </header>
+
+            </nav>
+        </header>
+    }
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
+    @if (!ViewContext.RouteData.Values["action"].Equals("Login"))
+    {
 
-    <footer class="border-top footer bg-dark text-muted">
-        <div class="container">
-            &copy; 2021 - MyLibrary - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+
+        <footer class="border-top footer bg-dark text-muted">
+            <div class="container">
+                &copy; 2021 - MyLibrary - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
+    }
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
