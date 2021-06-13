@@ -30,25 +30,24 @@
     }
 </script>
 
-<center> <h1> Login Form </h1> </center>
-<div class="container">
+<div class="container h-100 justify-content-center align-content-center mt-3">
     <form asp-action="Authenticate">
 
         <div class="form-container">
-            <div class="input-container">
+            <div class="input-container form-group">
                 <label>Username : </label>
                 <input asp-for="Email" class="form-control" required id="email" />
-                @*<span asp-validation-for="Email" class="text-danger"></span>*@
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="input-container">
+            <div class="input-container form-group">
                 <label>Password : </label>
                 <input asp-for="Password" class="form-control" required id="password" />
-                @*<span asp-validation-for="Password" class="text-danger"></span>*@
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="button-container">
-                @*<button type="submit" asp-action="Authenticate">Login</button>*@
-                <button type="button" onclick="saveToken()">Login</button>
-                <button type="button">Register</button>
+                @*<button type="submit" asp-action="Authenticate" class="btn btn-lg btn-success btn-block">Login</button>*@
+                <button type="button" onclick="saveToken()" class="btn btn-lg btn-success">Login</button>
+                <button type="button" class="btn btn-lg btn-info">Register</button>
             </div>
         </div>
     </form>

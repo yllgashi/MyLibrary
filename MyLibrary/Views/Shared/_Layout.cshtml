@@ -72,22 +72,23 @@
 
             </nav>
         </header>
-    }
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-    @if (!ViewContext.RouteData.Values["action"].Equals("Login"))
-    {
-
-
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
         <footer class="border-top footer bg-dark text-muted">
             <div class="container">
                 &copy; 2021 - MyLibrary - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
             </div>
         </footer>
     }
+
+    @if (ViewContext.RouteData.Values["action"].Equals("Login"))
+    {
+        @RenderBody()
+    }
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
