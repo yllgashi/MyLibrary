@@ -3,7 +3,7 @@
 
 // Write your JavaScript code.
 
-authorizedHttpReq = async function (url, method) {
+authorizedHttpReq = async (url, method) => {
     var token = localStorage.getItem('_token');
     if (!token) {
         window.location.href = window.location.origin + '/login'
@@ -17,10 +17,15 @@ authorizedHttpReq = async function (url, method) {
     });
 
     // if user is not login, redirect to /login
-    if (response.status === 401 || response.status === 403) {
+    if (!response.status === 200) {
         window.location.href = window.location.origin + '/login'
     }
 
     return await response.json();
-    
+
+}
+
+logout = () => {
+    localStorage.setItem("_token", "");
+    window.location.href = window.location.origin + '/login'
 }

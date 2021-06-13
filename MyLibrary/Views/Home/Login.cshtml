@@ -11,18 +11,23 @@
             var response = await fetch(window.location.origin + '/login', {
                 method: 'POST',
                 body: JSON.stringify({
-                    email: email,
-                    password: password
-                })
+                    Email: email,
+                    Password: password
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
 
             if (response.status === 401 || response.status === 403) {
                 window.location.href = window.location.origin + '/login'
             }
 
-            const json = JSON.stringify(response);
+            const json = await response.json();
 
-            console.log(json);
+            localStorage.setItem("_token", json["token"]);
+
+            window.location.href = window.location.origin + '/'
         }
     </script>
 </head>
@@ -44,8 +49,8 @@
                     @*<span asp-validation-for="Password" class="text-danger"></span>*@
                 </div>
                 <div class="button-container">
-                    <button type="submit" asp-action="Authenticate">Login</button>
-                    @*<button type="button" onclick="saveToken()">Login</button>*@
+                    @*<button type="submit" asp-action="Authenticate">Login</button>*@
+                    <button type="button" onclick="saveToken()">Login</button>
                     <button type="button">Register</button>
                 </div>
             </div>

@@ -43,15 +43,15 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
-        [Route("login")]
+        [Route("~/login")]
         [AllowAnonymous]
-        public async Task<ActionResult<dynamic>> Authenticate(string email, string password)
+        public async Task<ActionResult<dynamic>> Authenticate([FromBody] User myUser)
         {
             try
             {
-                if (email == null || password == null) throw new AuthorizationException();
+                if (myUser.Email == null || myUser.Password == null) throw new AuthorizationException();
 
-                user = UserRepository.Get(email, password);
+                user = UserRepository.Get(myUser.Email, myUser.Password);
 
                 if (user == null) throw new AuthorizationException();
 
