@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MyLibrary.Controllers
 {
-    //[Authorize(Roles = "Administrator, Client")]
+    [Route("[controller]/")]
     public class OfferController : Controller
     {
         OfferService offerService;
@@ -25,6 +25,14 @@ namespace MyLibrary.Controllers
             List<Offer> offers = offerService.GetList();
 
             return View(offers);
+        }
+
+        [Authorize(Roles = "Administrator, Client")]
+        [HttpGet("~/Offer/get-offers")]
+        public List<Offer> GetOffers()
+        {
+            offerService = new OfferService();
+            return offerService.GetList();
         }
 
         [HttpPost]

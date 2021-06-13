@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 namespace MyLibrary.Controllers
 {
     [Route("[controller]/")]
-    //[Authorize(Roles = "Administrator, Client")]
     public class AuthorController : Controller
     {
         AuthorService authorService;
@@ -27,6 +26,16 @@ namespace MyLibrary.Controllers
             List<Author> authors = authorService.GetList();
 
             return View(authors);
+        }
+
+        [Authorize(Roles = "Administrator, Client")]
+        [HttpGet("~/author/get-authors")]
+        public List<Author> GetAuthors()
+        {
+            authorService = new AuthorService();
+            List<Author> authors = authorService.GetList();
+
+            return authors;
         }
 
         [HttpPost]

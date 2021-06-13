@@ -29,7 +29,14 @@ namespace MyLibrary.Controllers
         [Route("~/")]
         [Route("/Home")]
         [Route("~/Home/Index")]
-        public IActionResult Index(User user)
+        public IActionResult Index(string? token)
+        {
+            return View(token);
+        }
+
+        [HttpGet]
+        [Route("~/Login")]
+        public IActionResult Login()
         {
             // login/register form
             return View();
@@ -37,7 +44,7 @@ namespace MyLibrary.Controllers
 
         [HttpPost]
         [Route("login")]
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public async Task<ActionResult<dynamic>> Authenticate(string email, string password)
         {
             try
@@ -51,25 +58,17 @@ namespace MyLibrary.Controllers
 
                 var token = TokenService.CreateToken(user);
                 user.Password = "";
-                //return new
-                //{
-                //    user = user,
-                //    token = token
-                //};
-                return RedirectToAction("Overview");
+
+                return new
+                {
+                    user = user,
+                    token = token
+                };
             }
             catch (Exception)
             {
                 return View("Error");
             }
-        }
-
-        [HttpGet]
-        [Route("Overview")]
-        //[Authorize(Roles = "Administrator, Client")]
-        public IActionResult Overview()
-        {
-            return View(user);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
