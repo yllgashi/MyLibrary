@@ -1,0 +1,59 @@
+﻿@model MyLibrary.Models.User
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/login.css" />
+
+    <script>
+        const saveToken = async () => {
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+
+            var response = await fetch(window.location.origin + '/login', {
+                method: 'POST',
+                body: JSON.stringify({
+                    Email: email,
+                    Password: password
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.status === 401 || response.status === 403) {
+                window.location.href = window.location.origin + '/login'
+            }
+
+            const json = await response.json();
+
+            localStorage.setItem("_token", json["token"]);
+
+            window.location.href = window.location.origin + '/'
+        }
+    </script>
+</head>
+
+<body>
+    <center> <h1> Login Form </h1> </center>
+    <div class="container">
+        <form asp-action="Authenticate">
+
+            <div class="form-container">
+                <div class="input-container">
+                    <label>Username : </label>
+                    <input asp-for="Email" class="form-control" required id="email" />
+                    @*<span asp-validation-for="Email" class="text-danger"></span>*@
+                </div>
+                <div class="input-container">
+                    <label>Password : </label>
+                    <input asp-for="Password" class="form-control" required id="password" />
+                    @*<span asp-validation-for="Password" class="text-danger"></span>*@
+                </div>
+                <div class="button-container">
+                    @*<button type="submit" asp-action="Authenticate">Login</button>*@
+                    <button type="button" onclick="saveToken()">Login</button>
+                    <button type="button">Register</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>

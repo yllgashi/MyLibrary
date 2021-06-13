@@ -2,3 +2,30 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+authorizedHttpReq = async (url, method) => {
+    var token = localStorage.getItem('_token');
+    if (!token) {
+        window.location.href = window.location.origin + '/login'
+    }
+
+    var response = await fetch(window.location.origin + url, {
+        method: method || 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    });
+
+    // if user is not login, redirect to /login
+    if (!response.status === 200) {
+        window.location.href = window.location.origin + '/login'
+    }
+
+    return await response.json();
+
+}
+
+logout = () => {
+    localStorage.setItem("_token", "");
+    window.location.href = window.location.origin + '/login'
+}

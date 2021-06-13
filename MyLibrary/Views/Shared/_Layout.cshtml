@@ -9,16 +9,16 @@
 
     <style>
         .nav-item {
-           padding-left:20px;
+            padding-left: 20px;
         }
+
         .navbar {
             border: 1px solid;
             padding: 10px;
             box-shadow: 2px 2px 10px #23153d;
         }
-     
-
     </style>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </head>
 <body>
     <header>
@@ -61,9 +61,9 @@
                             <a class="nav-link text-light" asp-area="" asp-controller="Client" asp-action="Index">Client</a>
                         </li>
                      
-                        @*<li class="nav-item">
-            <a class="btn btn-light btn-md active" role="button" asp-area="" asp-controller="Log In" asp-action="Index">Log In</a>
-        </li>*@
+                        <li class="nav-item">
+            <button class="btn btn-light btn-md active" role="button" onclick="logout()">Log out</button>
+        </li>
                     </ul>
                 </div>
             </div>
@@ -83,7 +83,7 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

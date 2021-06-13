@@ -67,6 +67,35 @@ namespace MyLibrary.Access
             return user;
         }
 
+        public User Login(User user)
+        {
+            using (DatabaseConn.conn = new SqlConnection(DatabaseConn.conString))
+            {
+                DatabaseConn.cmd = new SqlCommand("usp_User_Login", DatabaseConn.conn);
+                DatabaseConn.cmd.CommandType = CommandType.StoredProcedure;
+                DatabaseConn.cmd.Parameters.AddWithValue("@email", user.Email);
+                DatabaseConn.cmd.Parameters.AddWithValue("@password", user.Password);
+
+                try
+                {
+                    DatabaseConn.conn.Open();
+                    var reader = DatabaseConn.cmd.ExecuteReader();
+                    if (!reader.HasRows) throw new Exception();
+
+                    while (reader.Read())
+                    {
+                        user = GetUserFromDb(reader);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+
+            return user;
+        }
+
         public bool Create(User user)
         {
             using (DatabaseConn.conn = new SqlConnection(DatabaseConn.conString))
@@ -149,6 +178,7 @@ namespace MyLibrary.Access
                 LastName = reader["LastName"].ToString(),
                 Email = reader["Email"].ToString(),
                 Password = reader["Password"].ToString(),
+                Role = reader["Role"].ToString()
             };
 
             return user;

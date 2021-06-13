@@ -28,5 +28,7 @@ namespace MyLibrary.Models
         [StringLength(30, ErrorMessage = "Password is too long!")]
         [MinLength(8, ErrorMessage = "Password is too small!")]
         public string Password { get; set; }
+
+        public string Role { get; set; }
     }
 }

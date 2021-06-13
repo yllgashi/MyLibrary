@@ -8,6 +8,18 @@
 
 <link href="~/css/bookrent-index.css" rel="stylesheet" />
 
+<script>
+    // when page is loaded, checkout for authorization
+    // if authorization is ok, show data
+    // else redirect to login
+    const populateList = async () => {
+        var offers = await authorizedHttpReq('/offer/get-bookrents', 'GET');
+
+        console.log(offers);
+    }
+
+    populateList();
+</script>
 
 
 

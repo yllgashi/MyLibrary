@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyLibrary.DataService;
 using MyLibrary.Models;
 using MyLibrary.Models.Exceptions;
@@ -10,11 +11,15 @@ using System.Threading.Tasks;
 
 namespace MyLibrary.Controllers
 {
+    [Route("[controller]/")]
     public class BookRentController : Controller
     {
         BookRentService bookRentService;
 
         [HttpGet]
+        [HttpGet]
+        [Route("/BookRent")]
+        [Route("~/BookRent/Index")]
         public IActionResult Index()
         {
             bookRentService = new BookRentService();
@@ -23,7 +28,18 @@ namespace MyLibrary.Controllers
             return View(bookRents);
         }
 
+        [Authorize(Roles = "Administrator, Client")]
+        [HttpGet("~/book/get-bookrents")]
+        public List<BookRent> GetAuthors()
+        {
+            bookRentService = new BookRentService();
+            List<BookRent> bookRents = bookRentService.GetList();
+
+            return bookRents;
+        }
+
         [HttpPost]
+        [Route("Index")]
         public IActionResult Index(string keyword)
         {
             bookRentService = new BookRentService();
@@ -34,6 +50,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Details")]
         public IActionResult Details(int id)
         {
             bookRentService = new BookRentService();
@@ -50,12 +67,14 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Create")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("Create")]
         public IActionResult Create(BookRent bookRent)
         {
             bookRentService = new BookRentService();
@@ -73,6 +92,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Edit")]
         public IActionResult Edit(int id)
         {
             bookRentService = new BookRentService();
@@ -89,6 +109,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("Edit")]
         public IActionResult Edit(BookRent bookRent)
         {
             bookRentService = new BookRentService();
@@ -104,6 +125,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Delete")]
         public IActionResult Delete(int id)
         {
             bookRentService = new BookRentService();
@@ -120,6 +142,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("DeleteObject")]
         public IActionResult DeleteObject(int id)
         {
             bookRentService = new BookRentService();

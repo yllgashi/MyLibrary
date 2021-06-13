@@ -1,16 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyLibrary.Models;
+using MyLibrary.Repositories;
+using MyLibrary.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using MyLibrary.Models.Exceptions;
 
 namespace MyLibrary.Controllers
 {
+    [Route("[controller]/")]
     public class HomeController : Controller
     {
+        User user;
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -18,14 +24,51 @@ namespace MyLibrary.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+
+        [HttpGet]
+        [Route("~/")]
+        [Route("/Home")]
+        [Route("~/Home/Index")]
+        public IActionResult Index(string? token)
         {
+            return View(token);
+        }
+
+        [HttpGet]
+        [Route("~/Login")]
+        public IActionResult Login()
+        {
+            // login/register form
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        [Route("~/login")]
+        [AllowAnonymous]
+        public async Task<ActionResult<dynamic>> Authenticate([FromBody] User myUser)
         {
-            return View();
+            try
+            {
+                if (myUser.Email == null || myUser.Password == null) throw new AuthorizationException();
+
+                user = UserRepository.Get(myUser.Email, myUser.Password);
+
+                if (user == null) throw new AuthorizationException();
+
+
+                var token = TokenService.CreateToken(user);
+                user.Password = "";
+
+                return new
+                {
+                    user = user,
+                    token = token
+                };
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

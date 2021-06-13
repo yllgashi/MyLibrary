@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyLibrary.DataService;
 using MyLibrary.Models;
 using MyLibrary.Models.Exceptions;
@@ -10,11 +11,15 @@ using System.Threading.Tasks;
 
 namespace MyLibrary.Controllers
 {
+    [Route("[controller]/")]
     public class AuthorController : Controller
     {
         AuthorService authorService;
 
+
         [HttpGet]
+        [Route("/Author")]
+        [Route("~/Author/Index")]
         public IActionResult Index()
         {
             authorService = new AuthorService();
@@ -23,7 +28,18 @@ namespace MyLibrary.Controllers
             return View(authors);
         }
 
+        [Authorize(Roles = "Administrator, Client")]
+        [HttpGet("~/author/get-authors")]
+        public List<Author> GetAuthors()
+        {
+            authorService = new AuthorService();
+            List<Author> authors = authorService.GetList();
+
+            return authors;
+        }
+
         [HttpPost]
+        [Route("Index")]
         public IActionResult Index(string keyword)
         {
             authorService = new AuthorService();
@@ -37,6 +53,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Details")]
         public IActionResult Details(int id)
         {
             authorService = new AuthorService();
@@ -53,12 +70,14 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Create")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("Create")]
         public IActionResult Create(Author author)
         {
             authorService = new AuthorService();
@@ -77,6 +96,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Edit")]
         public IActionResult Edit(int id)
         {
             authorService = new AuthorService();
@@ -93,6 +113,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("Edit")]
         public IActionResult Edit(Author author)
         {
             authorService = new AuthorService();
@@ -108,6 +129,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Delete")]
         public IActionResult Delete(int id)
         {
             authorService = new AuthorService();
@@ -124,6 +146,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("DeleteObject")]
         public IActionResult DeleteObject(int id)
         {
             authorService = new AuthorService();

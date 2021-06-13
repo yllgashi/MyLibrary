@@ -27,6 +27,11 @@ namespace MyLibrary.DataService
             return userAccess.Get(id);
         }
 
+        public User Login(User user)
+        {
+            return userAccess.Login(user);
+        }
+
         public bool Create(User user)
         {
             // validation

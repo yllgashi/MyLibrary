@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyLibrary.DataService;
 using MyLibrary.Models;
 using MyLibrary.Models.Exceptions;
@@ -10,11 +11,14 @@ using System.Threading.Tasks;
 
 namespace MyLibrary.Controllers
 {
+    [Route("[controller]/")]
     public class CategoryController : Controller
     {
         CategoryService categoryService;
 
         [HttpGet]
+        [Route("/Category")]
+        [Route("~/Category/Index")]
         public IActionResult Index()
         {
             categoryService = new CategoryService();
@@ -23,7 +27,18 @@ namespace MyLibrary.Controllers
             return View(categories);
         }
 
+        [Authorize(Roles = "Administrator, Client")]
+        [HttpGet("~/category/get-categories")]
+        public List<Category> GetAuthors()
+        {
+            categoryService = new CategoryService();
+            List<Category> categories = categoryService.GetList();
+
+            return categories;
+        }
+
         [HttpPost]
+        [Route("Index")]
         public IActionResult Index(string keyword)
         {
             categoryService = new CategoryService();
@@ -34,6 +49,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Details")]
         public IActionResult Details(int id)
         {
             categoryService = new CategoryService();
@@ -50,12 +66,14 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Create")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("Create")]
         public IActionResult Create(Category category)
         {
             categoryService = new CategoryService();
@@ -74,6 +92,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Edit")]
         public IActionResult Edit(int id)
         {
             categoryService = new CategoryService();
@@ -90,6 +109,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("Edit")]
         public IActionResult Edit(Category category)
         {
             categoryService = new CategoryService();
@@ -105,6 +125,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Delete")]
         public IActionResult Delete(int id)
         {
             categoryService = new CategoryService();
@@ -121,6 +142,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("DeleteObject")]
         public IActionResult DeleteObject(int id)
         {
             categoryService = new CategoryService();

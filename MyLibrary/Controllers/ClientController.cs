@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyLibrary.DataService;
 using MyLibrary.Models;
 using MyLibrary.Models.Exceptions;
@@ -10,11 +11,14 @@ using System.Threading.Tasks;
 
 namespace MyLibrary.Controllers
 {
+    [Route("[controller]/")]
     public class ClientController : Controller
     {
         ClientService clientService;
 
         [HttpGet]
+        [Route("/Client")]
+        [Route("~/Client/Index")]
         public IActionResult Index()
         {
             clientService = new ClientService();
@@ -23,7 +27,19 @@ namespace MyLibrary.Controllers
             return View(clients);
         }
 
+        [Authorize(Roles = "Administrator, Client")]
+        [HttpGet("~/client/get-clients")]
+        public List<Client> GetAuthors()
+        {
+            clientService = new ClientService();
+            List<Client> clients = clientService.GetList();
+
+            return clients;
+        }
+
+
         [HttpPost]
+        [Route("Index")]
         public IActionResult Index(string keyword)
         {
             clientService = new ClientService();
@@ -34,6 +50,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Details")]
         public IActionResult Details(int id)
         {
             clientService = new ClientService();
@@ -50,12 +67,14 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Create")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("Create")]
         public IActionResult Create(Client client)
         {
             clientService = new ClientService();
@@ -74,6 +93,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Edit")]
         public IActionResult Edit(int id)
         {
             clientService = new ClientService();
@@ -90,6 +110,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("Edit")]
         public IActionResult Edit(Client client)
         {
             clientService = new ClientService();
@@ -105,6 +126,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpGet]
+        [Route("Delete")]
         public IActionResult Delete(int id)
         {
             clientService = new ClientService();
@@ -121,6 +143,7 @@ namespace MyLibrary.Controllers
         }
 
         [HttpPost]
+        [Route("DeleteObject")]
         public IActionResult DeleteObject(int id)
         {
             clientService = new ClientService();

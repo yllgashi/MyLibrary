@@ -5,6 +5,19 @@
 }
 
 <link rel="stylesheet" href="~/css/author-index.css">
+<script>
+    // when page is loaded, checkout for authorization
+    // if authorization is ok, show data
+    // else redirect to login
+    const populateList = async () => {
+        var offers = await authorizedHttpReq('/offer/get-clients', 'GET');
+
+        console.log(offers);
+    }
+
+    populateList();
+</script>
+
 
 <div class="container">
     <h1 class="d-md-inline-flex">Client</h1>

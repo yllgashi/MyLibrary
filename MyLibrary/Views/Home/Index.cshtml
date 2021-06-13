@@ -1,10 +1,23 @@
-﻿@{
+﻿@model string
+
+@{
     ViewData["Title"] = "Home Page";
 }
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="slick/slick-theme.css" />
+
+    <script>
+        // when page is loaded, checkout for authorization
+        // if authorization is ok, show data
+        // else redirect to login
+        const populateList = async () => {
+            var offers = await authorizedHttpReq('/offer/get-authors', 'GET');
+        }
+
+        populateList();
+    </script>
 </head>
 <body>
 
